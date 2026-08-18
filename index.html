@@ -27,6 +27,18 @@ h1{font-size:clamp(1.75rem,5vw,2.35rem);font-weight:700;letter-spacing:-.03em;li
 .block h2{font:12px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .row{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.95rem}
 .row .p{color:var(--amber);font-family:ui-monospace,Menlo,monospace;font-weight:600;white-space:nowrap}
+.tag{display:inline-block;background:var(--red);color:#fff;font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;padding:5px 7px;border-radius:4px;margin-left:9px;vertical-align:1px}
+.lead{font-size:1.3rem;font-weight:700;letter-spacing:-.025em;line-height:1.2;margin-bottom:8px}
+.price{font-family:ui-monospace,Menlo,monospace;font-size:1.45rem;font-weight:700;color:var(--amber);margin-bottom:16px}
+.price span{font-size:.78rem;color:var(--muted);font-weight:400;letter-spacing:.02em}
+.note{color:var(--muted);font-size:.95rem;margin-bottom:24px;max-width:44ch}
+.free{border:1px solid var(--line);border-left:2px solid var(--red);border-radius:6px;padding:14px 16px;margin-bottom:26px}
+.free b{display:block;font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.free p{font-size:.9rem;color:var(--muted);max-width:none}
+.subh{font:12px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.deliv{list-style:none;counter-reset:d;margin-bottom:28px}
+.deliv li{counter-increment:d;position:relative;padding:11px 0 11px 28px;border-bottom:1px solid var(--line);font-size:.93rem}
+.deliv li::before{content:counter(d);position:absolute;left:0;top:13px;font:10px/1 ui-monospace,Menlo,monospace;color:var(--red)}
 .fine{margin-top:24px;font-size:12px;color:#555}
 footer{border-top:1px solid var(--line);padding:16px 24px;text-align:center;font:11px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#333}
 footer a{color:#555;margin:0 8px}
@@ -37,6 +49,7 @@ footer a{color:#555;margin:0 8px}
     <div class="mark">//DEADLINE<span>SF</span></div>
     <nav>
       <a href="https://claimfreepatch.netlify.app">Free patch</a>
+      <a href="#mcp-shield">Shield</a>
       <a href="https://deadlinesfcali.netlify.app">CA</a>
     </nav>
   </div>
@@ -45,6 +58,31 @@ footer a{color:#555;margin:0 8px}
     <p class="sub">Start with a free public training-data disclosure. Scoped paid work if you need more. We do not need access to your stack for the free patch.</p>
     <a class="cta" href="https://claimfreepatch.netlify.app">Get free patch</a>
     <a class="ghost" href="https://deadlinesfcali.netlify.app">CA small teams</a>
+
+    <div class="block" id="mcp-shield">
+      <h2>New<span class="tag">RETAINER</span></h2>
+      <p class="lead">MCP Shield &amp; Post-Quantum Retainer</p>
+      <p class="price">$2,500<span> / month</span></p>
+      <p class="note">A standing runtime boundary around your MCP endpoints, and an
+      audit trail signed so it still verifies after the algorithms under it change.</p>
+
+      <div class="free">
+        <b>Start free</b>
+        <p>MCP Runtime Sanitizer snippet and a CycloneDX 1.6 CBOM diagnostic report.
+        Runs against your own repository. We do not need access to your stack.</p>
+      </div>
+
+      <p class="subh">Every month</p>
+      <ol class="deliv">
+        <li>Continuous zero-leakage runtime boundary across all active MCP server endpoints.</li>
+        <li>Automated AST and dependency scanning for legacy RSA/ECDSA cryptographic debt.</li>
+        <li>Real-time ML-DSA-65 (FIPS&nbsp;204) dual-signed attestation receipts for enterprise audit logs.</li>
+        <li>Ongoing law pack updates covering AB&nbsp;2013 and EO&nbsp;14409 compliance drift.</li>
+      </ol>
+
+      <a class="cta" href="mailto:prestigesf4@gmail.com?subject=Free%20MCP%20patch%20%2B%20CBOM%20report">Get the free MCP patch</a>
+      <a class="ghost" href="mailto:prestigesf4@gmail.com?subject=MCP%20Shield%20retainer">Talk about the retainer</a>
+    </div>
 
     <div class="block">
       <h2>If you need more</h2>
