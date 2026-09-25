@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeadlineSF — Verify Compliance Receipt</title>
+<meta name="description" content="Specimen hash verification for DeadlineSF Verified Compliance Receipts. Production verification binds to client vault hashes.">
+<link rel="canonical" href="https://deadlinesf.net/verify.html">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0a0a0a;--panel:#111;--line:#2a2a2a;--ink:#f5f5f0;--mute:#8a8a82;--red:#FF2B2B;--signal:#46e6a0;--amber:#ffb627;--mono:"JetBrains Mono",monospace;--disp:Archivo,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--ink);font-family:var(--disp);line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:32px 24px 80px}
+.top a{color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:12px}.r{color:var(--red)}
+h1{font-size:clamp(26px,5vw,40px);font-weight:900;text-transform:uppercase;margin:16px 0}
+p{color:var(--mute);margin-bottom:14px}
+label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:14px 0 6px}
+input,textarea{width:100%;padding:12px;background:#0d0d0d;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:13px}
+button{margin-top:16px;padding:12px 18px;background:var(--red);border:1px solid var(--red);color:var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer}
+.out{margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--signal);white-space:pre-wrap;border:1px solid var(--line);padding:14px;background:var(--panel);min-height:4em}
+.note{font-size:12px;color:var(--mute);margin-top:16px;border-left:3px solid var(--amber);padding:10px 14px;background:var(--panel)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html">//<span class="r">DEADLINE</span>SF</a>
+  <h1>Verify a <span class="r">receipt</span></h1>
+  <p>Paste a receipt SHA-256 (or full receipt text). This page computes a local hash for comparison against the specimen chain — production clients match hashes from their vault.</p>
+  <label for="hashIn">Claimed SHA-256 (optional)</label>
+  <input id="hashIn" placeholder="a7d9c2e0… or leave blank to hash body only">
+  <label for="bodyIn">Receipt body / file contents</label>
+  <textarea id="bodyIn" rows="8" placeholder="Paste receipt text or leave sample"></textarea>
+  <button type="button" id="go">Compute local SHA-256</button>
+  <div class="out" id="out">Ready.</div>
+  <div class="note">Specimen demo only. Does not contact a server. Full production verification is bound to the client evidence vault and attorney package — not this public form.</div>
+  <p style="margin-top:20px;font-size:13px"><a href='safe-harbor-certificate.html' style='color:var(--amber)'>Safe Harbor specimen</a> · <a href="index.html#offer" style="color:var(--mute)">Packages</a></p>
+</div>
+<script>
+async function sha256(text){
+  var data = new TextEncoder().encode(text);
+  var buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+document.getElementById('go').onclick = async function(){
+  var body = document.getElementById('bodyIn').value || 'DSF-2026-0847 specimen receipt body';
+  var claimed = (document.getElementById('hashIn').value || '').trim().toLowerCase().replace(/[^0-9a-f]/g,'');
+  var h = await sha256(body);
+  var lines = ['LOCAL_SHA256  ' + h];
+  if (claimed) {
+    var ok = claimed === h || h.indexOf(claimed.slice(0,16)) === 0;
+    lines.push(claimed.length === 64 ? (claimed === h ? 'MATCH full hash' : 'NO MATCH') : (h.indexOf(claimed) === 0 ? 'PREFIX MATCH (partial claim)' : 'NO MATCH'));
+    lines.push('CLAIMED       ' + claimed.slice(0,64));
+  } else {
+    lines.push('No claimed hash — copy local value into your vault record.');
+  }
+  lines.push('Not legal advice · public specimen tool');
+  document.getElementById('out').textContent = lines.join('\n');
+};
+</script>
+</body>
+</html>
