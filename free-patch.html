@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeadlineSF — Your Free Compliance Patch</title>
+<meta name="robots" content="index,follow">
+<meta name="description" content="Free 3-line California AI compliance patch. We don't ask for trust — we prove it with a real fix first. DeadlineSF gift-first pitch.">
+<link rel="canonical" href="https://deadlinesf.net/free-patch.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#0a0a0a; --panel:#111; --line:#2a2a2a;
+    --ink:#f5f5f0; --mute:#8a8a82;
+    --red:#FF2B2B; --signal:#46e6a0; --amber:#ffb627; --gold:#e8c766;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --disp:"Archivo","Helvetica Neue",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--bg)}
+  body{background:radial-gradient(1100px 560px at 50% -10%,#170a0a,var(--bg) 58%);color:var(--ink);font-family:var(--disp);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;padding:32px 20px 80px}
+  .wrap{max-width:760px;margin:0 auto}
+  .r{color:var(--red)}
+  .mono{font-family:var(--mono)}
+
+  .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:22px}
+  .top .logo{font-weight:700;letter-spacing:.05em;font-size:14px;color:var(--ink)}
+  .top .logo:hover{color:var(--red);text-shadow:0 0 8px rgba(255,43,43,.5);transition:.2s}
+  .free{border:1px solid var(--signal);color:var(--signal);padding:4px 10px;font-size:11px;letter-spacing:.14em}
+
+  /* card */
+  .card{position:relative;overflow:hidden;border:1px solid rgba(255,43,43,.28);background:linear-gradient(180deg,#160c0c,#0d0d0d 58%);box-shadow:0 0 0 1px rgba(255,43,43,.1),0 26px 70px rgba(0,0,0,.6),0 0 70px rgba(255,43,43,.1)}
+  .card.fixed{border-color:rgba(70,230,160,.32);box-shadow:0 0 0 1px rgba(70,230,160,.12),0 26px 70px rgba(0,0,0,.6),0 0 70px rgba(70,230,160,.12)}
+  .card::after{content:"";position:absolute;top:0;left:-45%;width:45%;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);animation:sweep 2.4s linear infinite;pointer-events:none}
+  .card.fixed::after{background:linear-gradient(90deg,transparent,var(--signal),transparent)}
+  @keyframes sweep{0%{left:-45%}100%{left:100%}}
+  .card>*{position:relative;z-index:1}
+
+  /* scan bar */
+  .scan{padding:20px 24px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:12px}
+  .scan .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:bl 1s infinite}
+  .card.fixed .scan .dot{background:var(--signal);box-shadow:0 0 12px var(--signal);animation:none}
+  @keyframes bl{50%{opacity:.3}}
+  .scan #scanmsg{color:var(--mute);letter-spacing:.06em}
+
+  /* header */
+  .head{padding:24px 24px 8px;display:flex;gap:16px;align-items:flex-start}
+  .head .ic{width:46px;height:46px;flex:0 0 auto;border:1px solid rgba(255,43,43,.4);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--red);background:rgba(255,43,43,.06);transition:.4s}
+  .card.fixed .head .ic{border-color:rgba(70,230,160,.5);color:var(--signal);background:rgba(70,230,160,.06)}
+  .head h1{font-family:var(--disp);font-weight:900;font-size:clamp(20px,4.4vw,28px);line-height:1.08;letter-spacing:-.01em}
+  .head .status{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;color:var(--red)}
+  .card.fixed .head .status{color:var(--signal)}
+  .head p{color:var(--mute);font-size:14px;margin-top:8px;max-width:520px}
+
+  .body{padding:8px 24px 26px}
+  .finding{border:1px solid var(--line);border-left:3px solid var(--red);background:#0d0d0d;padding:14px 16px;margin:14px 0}
+  .card.fixed .finding{border-left-color:var(--signal)}
+  .finding .lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+  .finding .val{font-size:14px;color:#e6e6df}
+  .finding .cite{font-family:var(--mono);font-size:12px;color:var(--amber);margin-top:5px}
+
+  /* code */
+  .codewrap{position:relative;margin-top:16px}
+  .codewrap .cap{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
+  .copy{position:absolute;top:0;right:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;background:#1a1a1a;color:var(--signal);border:1px solid rgba(70,230,160,.3);padding:6px 11px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:6px}
+  .copy:hover{background:#222;box-shadow:0 0 14px rgba(70,230,160,.25)}
+  pre{background:#070707;border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;margin-top:8px}
+  code{font-family:var(--mono);font-size:13px;line-height:1.7;color:#dcdcd4;white-space:pre}
+  code .cm{color:#6a6a62}
+  code .kw{color:#ff6b6b}
+  code .fn{color:var(--signal)}
+  code .st{color:var(--amber)}
+
+  /* pivot to safe harbor */
+  .pivot{margin-top:22px;border:1px solid rgba(232,199,102,.32);background:linear-gradient(180deg,#140f06,#0b0b0b);padding:20px;display:flex;gap:14px;align-items:flex-start}
+  .pivot .ic{color:var(--gold);flex:0 0 auto;margin-top:2px}
+  .pivot h5{font-family:var(--disp);font-weight:800;font-size:17px;color:var(--ink)}
+  .pivot h5 b{color:var(--red)}
+  .pivot p{color:var(--mute);font-size:13.5px;margin-top:6px}
+  .pivot p b{color:#d9d9d2;font-weight:400}
+  .pivot .cta{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:#1a1300;padding:12px 20px;font-weight:700;text-decoration:none;transition:.18s}
+  .pivot .cta:hover{transform:translateY(-2px);box-shadow:0 0 24px rgba(232,199,102,.4)}
+
+  .foot{margin-top:16px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--mute);text-align:center}
+  a{color:inherit}
+  /* gift-first doctrine */
+  .doctrine{border:1px solid rgba(255,43,43,.25);background:linear-gradient(180deg,rgba(28,10,10,.9),rgba(10,10,10,.95));padding:16px 18px;margin-bottom:18px}
+  .doctrine .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+  .doctrine p{font-size:14px;color:#d8d8d0;line-height:1.5;max-width:58ch}
+  .doctrine p b{color:var(--ink)}
+  .doctrine .line{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.04em}
+  @media (max-width:560px){.head{flex-direction:column;gap:12px}.pivot{flex-direction:column}}
+  @media (prefers-reduced-motion:reduce){.card::after,.scan .dot{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <a href="index.html" class="logo" style="text-decoration:none">//<span class="r">DEADLINE</span>SF</a>
+    <span class="free">Free · No card required</span>
+    <span class="mono">The pitch is the gift</span>
+  </div>
+
+  <div class="doctrine">
+    <div class="k">How we earn the right to help</div>
+    <p>We <b>don’t ask for trust</b>. We prove it — with something small but valuable you can use today. This free patch <b>is</b> the pitch: one real gap, one real fix. Help first. Always.</p>
+    <div class="line">Protect · Educate · Arm — then invite you deeper if you need the full shield.</div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="scan">
+      <span class="dot"></span>
+      <span id="scanmsg">Scanning stack · AWS · HuggingFace · app layer…</span>
+    </div>
+
+    <div class="head">
+      <div class="ic" id="hic">
+        <!-- shield-alert -->
+        <svg id="svg-alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4M12 16h.01"/></svg>
+      </div>
+      <div>
+        <h1 id="headline">Vulnerability Found</h1>
+        <div class="status" id="statusline">● In violation</div>
+        <p id="subline">We ran a public-surface readiness check against California's active AI ordinances and found a gap that shows up a lot. Here's a deterministic, zero-leakage patch — free, no card, no strings. Take it. Use it.</p>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="finding">
+        <div class="lab">Finding</div>
+        <div class="val">Public generative-AI system with <b style="color:#fff">no training-data transparency disclosure</b> — required for any developer serving Californians.</div>
+        <div class="cite">AB 2013 · Cal. Civ. Code § 3111 · operative Jan 1, 2026 · no size threshold</div>
+      </div>
+
+      <div class="codewrap">
+        <div class="cap">The 3-line patch</div>
+        <button class="copy" id="copy">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copytxt">Copy</span>
+        </button>
+<pre><code id="patch"><span class="cm"># DeadlineSF · AB 2013 guard — refuse ingestion of undisclosed training data</span>
+<span class="kw">if</span> <span class="fn">not</span> dataset.<span class="fn">disclosure_published</span>(jurisdiction=<span class="st">"CA"</span>):
+    <span class="kw">raise</span> <span class="fn">ComplianceError</span>(<span class="st">"AB 2013 §3111: publish training-data disclosure before ingest"</span>)</code></pre>
+      </div>
+
+      <div class="pivot">
+        <span class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <div>
+          <h5>You just got the gift. That’s how we sell — by helping first.</h5>
+          <p>That fixed <b>1 gap</b>. Manual patches are temporary. When you want the rest of the shield: <b>Live Decision API scan</b>, <b>11-Q quiz</b>, the free <b>Law Library</b>, Gap Audit <b>$750</b>, or the full control plane.</p>
+          <a href="index.html#api" class="cta">Live scan →</a>
+          <a class='cta' href='checkout.html?pkg=gap_750' style='margin-left:10px'>Gap Audit $750 →</a>
+          <a href="index.html#offer" class="cta" style="margin-left:10px;background:transparent;border:1px solid var(--gold);color:var(--gold)">Packages →</a>
+          <a class='cta' href='laws.html' style='margin-left:10px;background:transparent;border:1px solid var(--line);color:var(--mute)'>Law Library →</a>
+        </div>
+      </div>
+
+      <div class="foot">
+        Readiness patch, not legal advice. DeadlineSF is not a law firm; packages are reviewed by a licensed California attorney. Specimen finding shown for demonstration.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var card = document.getElementById('card');
+  var scanmsg = document.getElementById('scanmsg');
+  var headline = document.getElementById('headline');
+  var statusline = document.getElementById('statusline');
+  var subline = document.getElementById('subline');
+  var hic = document.getElementById('hic');
+
+  var checkSvg = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>';
+
+  if (!reduce){
+    var steps = [
+      [700,  function(){ scanmsg.textContent = 'Checking AB 2013 · SB 942 · CCPA disclosures…'; }],
+      [1500, function(){ scanmsg.innerHTML = '<span style="color:var(--red)">✕ Gap detected — training-data disclosure missing</span>'; }],
+      [2600, function(){ // apply the fix -> flip to resolved
+        card.classList.add('fixed');
+        hic.innerHTML = checkSvg;
+        headline.textContent = 'Patched. You’re no longer in violation.';
+        statusline.innerHTML = '● Resolved';
+        subline.textContent = 'Copy it. Ship it. It’s yours — no invoice attached. That is how we earn the right to help.';
+        scanmsg.innerHTML = '<span style="color:var(--signal)">✓ Patch verified · 1 checkpoint resolved</span>';
+      }]
+    ];
+    steps.forEach(function(s){ setTimeout(s[1], s[0]); });
+  } else {
+    // reduced motion: show resolved state immediately
+    card.classList.add('fixed'); hic.innerHTML = checkSvg;
+    headline.textContent = 'Patched. You’re no longer in violation.';
+    statusline.innerHTML = '● Resolved';
+    scanmsg.innerHTML = '<span style="color:var(--signal)">✓ Patch verified · 1 checkpoint resolved</span>';
+  }
+
+  // copy
+  document.getElementById('copy').addEventListener('click', function(){
+    var text = document.getElementById('patch').innerText;
+    var done = function(){ document.getElementById('copytxt').textContent = 'Copied'; setTimeout(function(){ document.getElementById('copytxt').textContent = 'Copy'; }, 2000); };
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(done); }
+    else { done(); }
+  });
+</script>
+</body>
+</html>
