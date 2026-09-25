@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeadlineSF Readiness Quiz — 11 Questions</title>
+<meta name="description" content="11-question AI compliance readiness diagnostic for AB 2013, SB 942, and multi-jurisdiction exposure. Not legal advice.">
+<link rel="canonical" href="https://deadlinesf.net/quiz.html">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0a0a0a;--panel:#111;--line:#2a2a2a;--ink:#f5f5f0;--mute:#8a8a82;--red:#FF2B2B;--signal:#46e6a0;--amber:#ffb627;--mono:"JetBrains Mono",monospace;--disp:Archivo,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--ink);font-family:var(--disp);line-height:1.45;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto;padding:32px 24px 80px}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute);margin-bottom:24px}
+.top a{color:var(--ink);text-decoration:none}.r{color:var(--red)}
+h1{font-size:clamp(26px,5vw,38px);font-weight:900;text-transform:uppercase;line-height:1;margin-bottom:10px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:24px}
+.card{border:1px solid var(--line);background:var(--panel);padding:24px}
+.bar{height:6px;background:#1a1a1a;margin-bottom:20px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--red);width:0;transition:width .3s}
+.q{font-size:20px;font-weight:700;margin-bottom:20px;min-height:3.2em}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ans{padding:18px;border:1px solid var(--line);background:#0d0d0d;cursor:pointer;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink)}
+.ans:hover{border-color:var(--red);box-shadow:0 0 20px rgba(255,43,43,.2)}
+.meta{font-family:var(--mono);font-size:11px;color:var(--mute);margin-bottom:12px;letter-spacing:.1em;text-transform:uppercase}
+.out{display:none}.out.on{display:block}
+.score{font-family:var(--mono);font-size:14px;color:var(--amber);margin:12px 0}
+.btn{display:inline-block;margin-top:14px;margin-right:8px;padding:12px 16px;background:var(--red);border:1px solid var(--red);color:var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:700}
+.btn.ghost{background:transparent;border-color:var(--line)}
+.disc{font-size:12px;color:var(--mute);margin-top:20px}
+ul{margin:12px 0 12px 1.2em;color:var(--mute);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a href="index.html">//<span class="r">DEADLINE</span>SF</a>
+    <span>11-question readiness diagnostic</span>
+    <a href="index.html#api">Live API scan</a>
+  </div>
+  <h1>Readiness <span class="r">quiz</span></h1>
+  <p class="sub">Eleven yes/no questions. Local only — nothing is uploaded. Result is a triage hint, not legal advice. Prefer a free fix first? <a href='free-patch.html' style='color:var(--amber)'>Take the 3-line patch</a> — we don’t ask for trust, we prove it.</p>
+
+  <div class="card" id="quizCard">
+    <div class="meta"><span id="stepLab">Question 1 / 11</span></div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="q" id="qText"></div>
+    <div class="row">
+      <button type="button" class="ans" id="yesBtn">Yes · applies</button>
+      <button type="button" class="ans" id="noBtn">No · does not</button>
+    </div>
+  </div>
+
+  <div class="card out" id="resultCard">
+    <div class="meta">Diagnostic complete</div>
+    <h2 id="tierTitle" style="font-size:22px;text-transform:uppercase;margin-bottom:8px"></h2>
+    <p class="score" id="scoreLine"></p>
+    <ul id="hints"></ul>
+    <a class='btn' href='free-patch.html' id='ctaPrimary'>Take free patch first</a>
+    <a class='btn ghost' href='checkout.html?pkg=gap_750' id='ctaPay'>Gap Audit $750</a>
+    <a class="btn ghost" href="index.html#api">Live Decision API scan</a>
+    <a class='btn ghost' href='laws.html'>Law Library</a>
+    <button type="button" class="btn ghost" id="restart" style="cursor:pointer">Retake</button>
+  </div>
+
+  <p class="disc">DeadlineSF is not a law firm. This quiz does not determine legal compliance. Attorney-reviewed packages are available on Premium.</p>
+</div>
+<script>
+(function(){
+  var Q = [
+    {t:"Does your product process data about California residents or serve CA users?", w:2},
+    {t:"Do you build, fine-tune, or substantially modify a public generative-AI system?", w:3},
+    {t:"Is training data documented on a public transparency page (sources, rights, PII, synthetic, dates)?", w:3, invert:true},
+    {t:"Do you generate images, video, or audio for end users?", w:2},
+    {t:"Do you embed latent / machine-readable AI-origin provenance in generated media?", w:2, invert:true},
+    {t:"Do you offer a free public tool so users can check if content came from your system?", w:2, invert:true},
+    {t:"Do you show a clear 'this is AI' disclosure in chat or interactive surfaces?", w:2, invert:true},
+    {t:"Do you have roughly 1M+ monthly users (the SB 1000 amendments remove this floor once signed)?", w:2},
+    {t:"Do you operate or sell into EU, Colorado, Illinois, NYC, Texas, or Utah with AI systems?", w:2},
+    {t:"Do automated decisions (scoring, ranking, hiring, credit-like) affect people without a human review path?", w:2},
+    {t:"Would an investor or enterprise buyer ask for a compliance receipt this quarter?", w:1}
+  ];
+  var i = 0, score = 0, answers = [];
+  var qText = document.getElementById('qText');
+  var bar = document.getElementById('bar');
+  var stepLab = document.getElementById('stepLab');
+  var quizCard = document.getElementById('quizCard');
+  var resultCard = document.getElementById('resultCard');
+
+  function showQ(){
+    var q = Q[i];
+    stepLab.textContent = 'Question ' + (i+1) + ' / ' + Q.length;
+    bar.style.width = (((i)/Q.length)*100) + '%';
+    qText.textContent = q.t;
+  }
+  function finish(){
+    quizCard.style.display = 'none';
+    resultCard.classList.add('on');
+    bar.style.width = '100%';
+    var max = Q.reduce(function(a,q){return a+q.w},0);
+    var pct = Math.round((score/max)*100);
+    document.getElementById('scoreLine').textContent = 'Exposure index ' + score + ' / ' + max + ' (' + pct + '%) — illustrative triage only';
+    var title = document.getElementById('tierTitle');
+    var hints = document.getElementById('hints');
+    var cta = document.getElementById('ctaPrimary');
+    hints.innerHTML = '';
+    function add(h){ var li=document.createElement('li'); li.textContent=h; hints.appendChild(li); }
+
+    var ctaPay = document.getElementById('ctaPay');
+    if (pct >= 55) {
+      title.innerHTML = 'High priority · Premium path';
+      add('Likely multi-factor exposure (training data, provenance, and/or multi-jurisdiction).');
+      add('Gift first: free 3-line patch, then Gap Audit $750 → Tier 2/3 if media is core.');
+      add('Run Live Decision API scan with SB 942 pack facts filled in.');
+      cta.href = 'free-patch.html'; cta.textContent = 'Take free patch first';
+      if (ctaPay) { ctaPay.href = 'checkout.html?pkg=gap_750'; ctaPay.textContent = 'Then Gap Audit $750'; }
+    } else if (pct >= 30) {
+      title.innerHTML = 'Moderate · Start with the gift, then Gap Audit';
+      add('Material CA / GenAI signals. Close disclosure gaps before they become investor questions.');
+      add('Free 3-line patch first (that is the pitch), then $750 Gap Audit.');
+      add('Learn the landscape free first: AI Law Library, then the $750 Gap Audit.');
+      cta.href = 'free-patch.html'; cta.textContent = 'Take free patch first';
+      if (ctaPay) { ctaPay.href = 'checkout.html?pkg=gap_750'; ctaPay.textContent = 'Gap Audit $750'; }
+    } else {
+      title.innerHTML = 'Lower index · still verify';
+      add('Fewer risk flags from this triage — still confirm public disclosures and counsel review.');
+      add('We still hand you the free patch — proof before invoice.');
+      cta.href = 'free-patch.html'; cta.textContent = 'Get free patch';
+      if (ctaPay) { ctaPay.href = 'laws.html'; ctaPay.textContent = 'Read the Law Library'; }
+    }
+    if (answers[2] === true) add('No public training-data page flagged → AB 2013 readiness work.');
+    if (answers[4] === true || answers[5] === true) add('Provenance / detection gaps → SB 942 Tier 2 path.');
+    if (answers[8] === true) add('Multi-jurisdiction exposure → Premium packs cover EU, CO, IL, NYC, TX, UT on one engine.');
+  }
+  function answer(yes){
+    var q = Q[i];
+    answers[i] = yes;
+    var risk = q.invert ? !yes : yes;
+    if (risk) score += q.w;
+    i++;
+    if (i >= Q.length) finish(); else showQ();
+  }
+  document.getElementById('yesBtn').onclick = function(){ answer(true); };
+  document.getElementById('noBtn').onclick = function(){ answer(false); };
+  document.getElementById('restart').onclick = function(){
+    i=0; score=0; answers=[];
+    resultCard.classList.remove('on');
+    quizCard.style.display='block';
+    showQ();
+  };
+  showQ();
+})();
+</script>
+</body>
+</html>

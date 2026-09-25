@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Law Library — Exact Frameworks + Plain English — DeadlineSF</title>
+<meta name="description" content="Every AI law DeadlineSF tracks — California, multi-state, NYC, Texas, Utah, Illinois, Colorado, EU — with the exact legal framework (citations, sections, dates, penalties) and a plain-English translation. Free educational resource.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://deadlinesf.net/laws.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#050508; --panel:#101014; --panel2:#0b0b0f; --line:#26262e;
+    --ink:#f5f5f0; --mute:#8a8a92;
+    --red:#FF2B2B; --signal:#46e6a0; --amber:#ffb627; --violet:#8b7bff;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --disp:"Archivo","Helvetica Neue",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--bg);scroll-behavior:smooth}
+  body{background:radial-gradient(900px 480px at 80% -10%,#160a10,transparent 60%),var(--bg);color:var(--ink);font-family:var(--disp);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit}
+  ::selection{background:rgba(255,43,43,.85);color:#fff}
+  .r{color:var(--red)}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid var(--line);background:rgba(5,5,8,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .logo{font-family:var(--mono);font-weight:700;letter-spacing:.05em;font-size:14px;text-decoration:none;white-space:nowrap}
+  .topbar .crumb{font-family:var(--mono);font-size:12px;color:var(--mute);letter-spacing:.06em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topbar .spacer{flex:1}
+  .topbar .pill{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);border:1px solid rgba(70,230,160,.4);padding:4px 10px;white-space:nowrap}
+
+  /* hamburger — 2026 style */
+  .burger{position:relative;width:46px;height:40px;flex:0 0 auto;border:1px solid var(--line);background:linear-gradient(180deg,#181820,#0d0d12);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:10px;transition:border-color .2s ease,box-shadow .2s ease,transform .15s ease}
+  .burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s cubic-bezier(.6,.05,.2,1.4),opacity .2s ease,background .2s ease}
+  .burger:hover{border-color:var(--red);box-shadow:0 0 18px rgba(255,43,43,.3);transform:translateY(-1px)}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--red)}
+  .burger.open span:nth-child(2){opacity:0;transform:scaleX(.2)}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--red)}
+
+  /* scrim + drawer */
+  .scrim{position:fixed;inset:0;z-index:50;background:rgba(3,3,6,.55);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;left:0;bottom:0;z-index:60;width:min(380px,92vw);background:linear-gradient(180deg,#0d0d13,#08080c);border-right:1px solid var(--line);box-shadow:30px 0 80px rgba(0,0,0,.6);transform:translateX(-102%);transition:transform .38s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column}
+  .drawer.show{transform:translateX(0)}
+  .drawer .dhead{padding:20px 22px 14px;border-bottom:1px solid var(--line)}
+  .drawer .dhead .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+  .drawer .dhead h2{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+  .drawer .dsearch{margin:12px 22px 0}
+  .drawer .dsearch input{width:100%;padding:11px 14px;background:#07070a;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:13px;border-radius:8px}
+  .drawer .dsearch input:focus{outline:none;border-color:var(--red);box-shadow:0 0 14px rgba(255,43,43,.25)}
+  .drawer nav{flex:1;overflow-y:auto;padding:14px 12px 30px;scrollbar-width:thin;scrollbar-color:#333 transparent}
+  .dgroup{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);padding:16px 12px 8px;display:flex;align-items:center;gap:8px}
+  .dgroup::after{content:"";flex:1;height:1px;background:var(--line)}
+  .ditem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 12px;margin:2px 0;background:none;border:1px solid transparent;border-radius:9px;color:var(--ink);font-family:var(--disp);font-size:14.5px;font-weight:600;cursor:pointer;transition:background .15s ease,border-color .15s ease,transform .15s ease}
+  .ditem small{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;color:var(--mute);letter-spacing:.04em;margin-top:2px}
+  .ditem:hover{background:#16161e;transform:translateX(3px)}
+  .ditem.active{background:linear-gradient(90deg,rgba(255,43,43,.14),transparent 70%);border-color:rgba(255,43,43,.45)}
+  .ditem.active .dot{background:var(--red);box-shadow:0 0 10px var(--red)}
+  .ditem .dot{width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:#3a3a44;transition:.2s}
+  .ditem .st{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);border-radius:20px;color:var(--mute)}
+  .ditem .st.live{color:var(--signal);border-color:rgba(70,230,160,.5)}
+  .ditem .st.hot{color:var(--red);border-color:rgba(255,43,43,.6)}
+  .ditem .st.pend{color:var(--amber);border-color:rgba(255,182,39,.5)}
+
+  /* layout */
+  .layout{max-width:1060px;margin:0 auto;padding:34px 22px 90px}
+
+  /* law header card */
+  .lawhead{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#14141b,var(--panel2));padding:26px 26px 22px;position:relative;overflow:hidden;margin-bottom:22px}
+  .lawhead::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent 60%)}
+  .lawhead .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .chip{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--line);border-radius:20px;color:var(--mute)}
+  .chip.live{color:var(--signal);border-color:rgba(70,230,160,.5)}
+  .chip.hot{color:var(--red);border-color:rgba(255,43,43,.6)}
+  .chip.pend{color:var(--amber);border-color:rgba(255,182,39,.5)}
+  .chip.jur{color:var(--violet);border-color:rgba(139,123,255,.45)}
+  .lawhead h1{font-size:clamp(26px,4.6vw,44px);font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.02em;margin-bottom:10px}
+  .lawhead .cite{font-family:var(--mono);font-size:13px;color:var(--amber)}
+  .lawhead .dates{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;border:1px solid var(--line);border-radius:10px;margin-top:18px;overflow:hidden}
+  .lawhead .dcell{padding:12px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.015)}
+  .lawhead .dcell:last-child{border-right:none}
+  .lawhead .dk{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .lawhead .dv{font-family:var(--mono);font-size:13px;font-weight:700;margin-top:3px}
+
+  /* tabs */
+  .tabs{display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:0;background:var(--panel2)}
+  .tab{flex:1;padding:15px 10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-align:center;color:var(--mute);background:none;border:none;cursor:pointer;transition:.2s;border-bottom:2px solid transparent}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--ink);background:linear-gradient(180deg,rgba(255,43,43,.12),transparent);border-bottom-color:var(--red)}
+  .tab .ico{margin-right:8px}
+  .panel{display:none;border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;background:var(--panel2);padding:28px}
+  .panel.show{display:block;animation:fadeUp .35s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* framework blocks */
+  .fblock{margin-bottom:24px}
+  .fblock:last-child{margin-bottom:0}
+  .fk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .fk::after{content:"";flex:1;height:1px;background:var(--line)}
+  .fblock p{color:#c9c9c2;font-size:15px;max-width:72ch}
+  .freq{list-style:none}
+  .freq li{position:relative;padding:9px 0 9px 24px;border-top:1px solid var(--line);color:#c9c9c2;font-size:14.5px}
+  .freq li:first-child{border-top:none}
+  .freq li::before{content:"§";position:absolute;left:2px;color:var(--red);font-family:var(--mono);font-weight:700}
+  .freq li b{color:var(--ink)}
+  .penbox{border-left:3px solid var(--red);background:rgba(255,43,43,.06);padding:14px 18px;font-size:14.5px;color:#e6e6de;border-radius:0 8px 8px 0}
+  .penbox b{color:var(--red)}
+  .srclink{display:inline-flex;align-items:center;gap:8px;margin:4px 12px 4px 0;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--amber);text-decoration:none;border:1px solid rgba(255,182,39,.4);padding:9px 14px;border-radius:8px;transition:.18s}
+  .srclink:hover{color:var(--red);border-color:var(--red);box-shadow:0 0 16px rgba(255,43,43,.25);transform:translateY(-1px)}
+
+  /* plain english */
+  .plain-lede{font-size:clamp(19px,2.6vw,24px);font-weight:800;line-height:1.35;color:var(--ink);margin-bottom:18px;max-width:34ch}
+  .plain-lede .hl{color:var(--red)}
+  .panel.plain p.body2{color:#c9c9c2;font-size:16px;max-width:68ch;margin-bottom:14px}
+  .analogy{border:1px dashed rgba(139,123,255,.5);background:rgba(139,123,255,.06);border-radius:10px;padding:16px 20px;margin:18px 0}
+  .analogy .ak{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+  .analogy p{font-size:15px;color:#d9d9f0;margin:0}
+  .whocares{border-left:3px solid var(--signal);background:rgba(70,230,160,.05);padding:14px 18px;border-radius:0 8px 8px 0;font-size:14.5px;color:#e2e2da;margin-top:18px}
+  .whocares b{color:var(--signal)}
+
+  /* prev / next */
+  .prevnext{display:flex;justify-content:space-between;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .pn{flex:1;min-width:220px;border:1px solid var(--line);border-radius:12px;padding:16px 20px;text-decoration:none;background:var(--panel2);transition:.18s}
+  .pn:hover{border-color:var(--red);box-shadow:0 0 22px rgba(255,43,43,.2);transform:translateY(-2px)}
+  .pn .dir{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+  .pn .nm{font-weight:700;font-size:16px;margin-top:4px}
+  .pn.next{text-align:right}
+
+  footer{border-top:1px solid var(--line);padding:28px 22px;color:var(--mute);font-size:13px;font-family:var(--mono)}
+  footer .frow{max-width:1060px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .note{font-size:12.5px;color:var(--mute);max-width:76ch;margin:26px auto 0;font-family:var(--mono);line-height:1.7}
+  @media (max-width:640px){.lawhead .dates{grid-template-columns:1fr 1fr}.lawhead .dcell{border-bottom:1px solid var(--line)}.panel{padding:20px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Open law menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="logo">//<span class="r">DEADLINE</span>SF</a>
+  <span class="crumb">/ AI Law Library / <span id="crumbLaw">…</span></span>
+  <span class="spacer"></span>
+  <span class="pill">13 laws tracked</span>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="AI law menu">
+  <div class="dhead">
+    <div class="k">DeadlineSF · Education</div>
+    <h2>AI Law Library</h2>
+  </div>
+  <div class="dsearch"><input id="dsearch" type="search" placeholder="Filter laws… (e.g. texas, frontier, hiring)" aria-label="Filter laws"></div>
+  <nav id="dnav" aria-label="Laws"></nav>
+</aside>
+
+<main class="layout">
+  <div class="lawhead" id="lawhead"></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" id="tabFramework" role="tab" aria-selected="true"><span class="ico">⚖</span>Exact Legal Framework</button>
+    <button class="tab" id="tabPlain" role="tab" aria-selected="false"><span class="ico">◎</span>Plain English</button>
+  </div>
+  <div class="panel show" id="panelFramework" role="tabpanel"></div>
+  <div class="panel plain" id="panelPlain" role="tabpanel"></div>
+
+  <div class="prevnext">
+    <a class="pn prev" id="pnPrev" href="#"><div class="dir">← Previous law</div><div class="nm" id="pnPrevName"></div></a>
+    <a class="pn next" id="pnNext" href="#"><div class="dir">Next law →</div><div class="nm" id="pnNextName"></div></a>
+  </div>
+
+  <p class="note">Educational summaries prepared by DeadlineSF · verified against official sources · last review 2026-09-24. DeadlineSF is not a law firm and this page is not legal advice. Statute text controls — always confirm against the official source linked in each framework before making consequential decisions.</p>
+</main>
+
+<footer>
+  <div class="frow">
+    <div>//<span class="r">DEADLINE</span>SF · AI Law Library · free forever</div>
+    <div><a href="index.html">Home</a> · <a href="free-patch.html">Free patch</a> · <a href="quiz.html">Quiz</a> · <a href="index.html#offer">Packages</a></div>
+    <div>© 2026 PrestigeSF</div>
+  </div>
+</footer>
+
+<script>
+const LAWS = [
+{
+  id:"sb942", group:"California", jur:"California", name:"SB 942 · California AI Transparency Act",
+  cite:"Cal. Bus. & Prof. Code §§ 22757–22757.6 · amended by AB 853 (2025) · as amended by SB 1000 (2026, pending signature)",
+  status:"live", statusLabel:"In effect since Aug 2, 2026",
+  dates:[["Chaptered","Sept 2024 (SB 942)"],["Operative date","Aug 2, 2026 (set by AB 853)"],["Penalty","$5,000 per violation, per day (§ 22757.3)"],["Scope trigger",">1M monthly users — deleted by SB 1000 (pending)"]],
+  covered:"“Covered providers” — persons that create, code, or otherwise produce a generative AI system with over 1,000,000 monthly visitors or users that is publicly accessible within California. SB 1000 (passed Aug 27, 2026, awaiting the Governor's signature) deletes that threshold entirely, extending coverage to essentially every public GenAI provider with a California nexus.",
+  requirements:[
+    "<b>Verification tool (§ 22757.2):</b> offer a free, publicly available AI-content “disclosure verification tool” that reads a provider's latent disclosures and tells users whether content was created or altered by the system. SB 1000 lets providers satisfy this with a compliant third-party tool surfaced through their own interface.",
+    "<b>Latent disclosure (§ 22757.1):</b> embed imperceptible, machine-readable provenance data in AI-generated or AI-altered image, video, and audio content — conveying the provider's name, system version, timestamp, a unique identifier, and whether AI created or altered the content.",
+    "<b>Manifest disclosure (repealed by SB 1000):</b> the original duty to offer users a visible “AI-generated” watermark option is deleted; latent provenance becomes the sole disclosure track.",
+    "<b>Licensee enforcement (§ 22757.4):</b> license agreements must require licensees to preserve disclosure capability; on discovering an identifiable licensee has broken compliance, the provider must revoke, suspend, or terminate authorization — within 72 hours under SB 1000 (down from 96).",
+    "<b>Carve-outs (SB 1000):</b> minor modifications — brightness/contrast, sharpening, saturation, resizing, cropping, format conversion, audio denoising — do not count as “altering” content.",
+    "<b>Privacy guardrail (SB 1000):</b> no collecting, retaining, selling, or sharing personal information from verification-tool users beyond what compliance strictly requires."
+  ],
+  penalties:"Civil penalty of <b>$5,000 per violation, per day</b> (§ 22757.3), enforceable by the Attorney General, city attorneys, and county counsel. Each day of non-compliance compounds.",
+  sources:[["Official text — SB 942 (LegiScan/leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240SB942"],["AB 853 (operative-date amendment)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853"]],
+  plainLede:"If Californians can use your AI to make images, video, or audio, you must <span class=\"hl\">invisibly watermark it</span> and give the public a free <span class=\"hl\">“is this AI?” checker</span>.",
+  plain:[
+    "Think of it as a permanent, invisible barcode baked into every file your AI produces. Anyone — a journalist, a platform, a regulator — can scan the file and see who made it, with what system, and when.",
+    "Originally this only hit the giants (over a million monthly users). SB 1000 removes that floor: once it's signed, even a two-person startup shipping a public GenAI tool in California is covered.",
+    "The visible-watermark requirement is gone — lawmakers bet everything on the invisible provenance layer, aligned with standards like C2PA. Lightweight edits (cropping, resizing, color tweaks) don't trigger new disclosures."
+  ],
+  analogy:"It's the nutrition label for synthetic media — except it's stamped into the food itself, not printed on the wrapper.",
+  who:"Public GenAI image/video/audio providers serving California; platforms and licensees redistributing those models; enterprise buyers whose vendor contracts must preserve provenance."
+},
+{
+  id:"ab2013", group:"California", jur:"California", name:"AB 2013 · Training-Data Transparency",
+  cite:"Cal. Civ. Code § 3111 · chaptered 2024 · operative Jan 1, 2026",
+  status:"live", statusLabel:"In effect since Jan 1, 2026",
+  dates:[["Chaptered","Sept 2024"],["Operative","Jan 1, 2026"],["User threshold","None — any covered developer"],["Enforcement","Unfair Competition Law (Bus. & Prof. § 17200)"]],
+  covered:"“Developers” — any person or entity that designs, codes, produces, or <b>substantially modifies</b> (including fine-tuning) a generative AI system or service made publicly available to Californians. There is no user-count or revenue minimum.",
+  requirements:[
+    "Publish, on the developer's website, <b>documentation of the training data</b>, including: the sources or owners of the datasets.",
+    "The <b>number of data points</b> included (approximate, labeled and structured).",
+    "Whether the datasets include material <b>protected by copyright, trademark, or patent</b>, or are licensed/purchased.",
+    "Whether the datasets include <b>personal information</b> or aggregate consumer information.",
+    "How the data was <b>cleaned, processed, or synthesized</b>, and the time period over which it was collected.",
+    "Whether <b>synthetic data</b> was used, and whether datasets were used for <b>fine-tuning</b>.",
+    "Documentation must be posted before the system (or a substantial modification of it) is released to Californians, and kept current."
+  ],
+  penalties:"No standalone fine schedule in § 3111 — exposure flows through California's <b>Unfair Competition Law</b> (Bus. & Prof. Code § 17200), enabling AG, DA, and private-plaintiff actions, injunctions, and restitution.",
+  sources:[["Official text — AB 2013 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240AB2013"]],
+  plainLede:"Build an AI people in California can use? You must publish a <span class=\"hl\">nutrition label for your training data</span> — no matter how small you are.",
+  plain:[
+    "The state wants to know what your model ate: where the training data came from, roughly how much of it there is, whether it's copyrighted, whether it contains people's personal information, and whether any of it is synthetic.",
+    "The trap for startups: “developer” includes anyone who <b>fine-tunes or substantially modifies</b> a base model. Wrapping GPT with your own fine-tune can make you a developer with your own disclosure duty.",
+    "There's no revenue floor and no user floor. The disclosure lives on your website — and DeadlineSF's free 3-line patch plus Gap Audit exist precisely for this law."
+  ],
+  analogy:"Like the ingredient list on packaged food: you don't have to give away the recipe (trade secrets are handled), but you must list the ingredients.",
+  who:"GenAI developers and fine-tuners serving Californians — including SaaS teams modifying foundation models."
+},
+{
+  id:"sb1000", group:"California", jur:"California", name:"SB 1000 · AI Transparency Act Amendments",
+  cite:"Amends Cal. Bus. & Prof. Code §§ 22757 et seq. · urgency statute · passed Aug 27, 2026",
+  status:"pend", statusLabel:"Passed · awaiting Governor signature",
+  dates:[["Passed Legislature","Aug 27, 2026 (urgency clause)"],["Enrolled","Sept 2, 2026 — on Governor's desk"],["Signature deadline","Sept 30, 2026"],["Effect on signature","Immediate (urgency statute)"]],
+  covered:"Every “covered provider” under the California AI Transparency Act — redefined from “over 1,000,000 monthly visitors or users” to <b>any person</b> that creates, codes, or otherwise produces a GenAI system publicly accessible within California.",
+  requirements:[
+    "<b>Deletes the 1M-user threshold</b> — startups, mid-market SaaS, and open-source projects with public interfaces enter scope.",
+    "<b>Eliminates manifest (visible) disclosure</b> — the law now runs exclusively on latent, machine-readable provenance data.",
+    "<b>Specifies latent data fields:</b> provider name, system version, timestamp, unique identifier, and whether AI created or altered the content.",
+    "<b>Third-party verification allowed</b> — providers may route users to a compliant external disclosure-verification tool, surfaced through their own interface, instead of building one.",
+    "<b>72-hour licensee action</b> (down from 96) once a provider discovers a licensee broke compliance — revoke, suspend, or terminate.",
+    "<b>Minor-modification carve-outs:</b> brightness/contrast, sharpening, saturation, resizing, scaling, cropping, format conversion, audio denoising.",
+    "<b>Assistive-technology flag:</b> latent disclosures must indicate when the system primarily functions as assistive technology for people with disabilities.",
+    "<b>No duty to monitor licensees</b>, and strict limits on personal information collected through verification tools."
+  ],
+  penalties:"Unchanged: <b>$5,000 per violation, per day</b> — but now applied to a vastly larger covered population the moment the bill is signed.",
+  sources:[["Official text — SB 1000 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000"]],
+  plainLede:"The fix-it bill that quietly turned a <span class=\"hl\">big-tech law</span> into an <span class=\"hl\">everybody law</span>.",
+  plain:[
+    "SB 942 was sold as regulating the giants. SB 1000 deletes the million-user gate: the day it's signed, nearly every public GenAI provider touching California must embed provenance data and offer verification.",
+    "In exchange, compliance got simpler: no more visible-watermark duty, and you can borrow a third-party verification tool instead of building your own detector.",
+    "Because it's an urgency statute there is no runway — it takes effect on signature. If you ship GenAI content features, your provenance pipeline needs to exist <b>now</b>."
+  ],
+  analogy:"The city lowered the bridge: the same truck every company drives now has to fit under the same bar — but they also removed the requirement to paint the truck.",
+  who:"Every GenAI provider with California users; licensees and redistributors of foundation models; verification-tool vendors (new market)."
+},
+{
+  id:"sb53", group:"California", jur:"California", name:"SB 53 · Transparency in Frontier AI Act (TFAIA)",
+  cite:"Signed Sept 29, 2025 · California's frontier-model safety law",
+  status:"live", statusLabel:"In effect",
+  dates:[["Signed","Sept 29, 2025"],["Compute threshold","10²⁶ FLOPs (frontier model)"],["Large developer","&gt;$500M annual revenue"],["Catastrophic-risk bar","50+ deaths or $1B damage"]],
+  covered:"“Frontier developers” — anyone who trains (or initiates training of) a foundation model using more than <b>10²⁶ FLOPs</b>. “Large frontier developers” (over $500M revenue with affiliates) carry the heaviest duties.",
+  requirements:[
+    "Publish a <b>frontier AI framework</b>: how catastrophic risks are identified, assessed, mitigated, and governed — updated annually with public justifications for changes.",
+    "Publish a <b>transparency report</b> before deploying a new or substantially modified frontier model: intended uses, modalities, restrictions.",
+    "Report <b>critical safety incidents</b> to the Office of Emergency Services — on a 15-day clock, faster when imminent danger.",
+    "<b>Whistleblower protections</b> for employees who raise catastrophic-risk concerns.",
+    "Prohibition on materially <b>false or misleading statements</b> about catastrophic risk management."
+  ],
+  penalties:"Civil penalties up to <b>$1 million per violation</b>, enforced by the Attorney General.",
+  sources:[["Official text — SB 53 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53"]],
+  plainLede:"Only the <span class=\"hl\">biggest model builders</span>: publish your safety playbook, and tell the state when something goes seriously wrong.",
+  plain:[
+    "This law doesn't touch normal companies using AI — it targets the handful of labs training frontier-scale models.",
+    "California created the template (10²⁶ FLOPs, $500M, catastrophic-risk reporting) that New York's RAISE Act and Illinois' SB 315 later copied — a de facto national standard is forming.",
+    "If you're a downstream user of frontier models, expect these obligations to reach you contractually through vendor terms."
+  ],
+  analogy:"Aviation rules for jumbo jets: Cessnas aren't regulated by them, but everyone flying passengers feels the standards.",
+  who:"Frontier AI labs; their enterprise customers (via contract flow-downs); safety and governance teams."
+},
+{
+  id:"sb1050", group:"California", jur:"California", name:"SB 1050 · Synthetic Performer Ad Disclosures",
+  cite:"Cal. Bus. & Prof. Code § 17610 · signed Sept 16, 2026 · effective Jan 1, 2027",
+  status:"hot", statusLabel:"Signed · effective Jan 1, 2027",
+  dates:[["Signed","Sept 16, 2026"],["Effective","Jan 1, 2027"],["Media covered","Video AND audio-only ads"],["Trigger","Synthetic performer used “prominently”"]],
+  covered:"Advertisers and agencies publishing video or audio advertisements in California that <b>prominently</b> feature an AI-generated “synthetic performer” — a digital figure, voice, or representation that looks or sounds human but is no identifiable real person.",
+  requirements:[
+    "A <b>clear and conspicuous disclosure</b> that the advertisement includes a synthetic performer, using language prescribed by the statute.",
+    "Applies to <b>audio-only ads</b> (radio, podcasts) — broader than New York's equivalent law.",
+    "<b>Advertising media</b> (publishers, platforms) must remove non-compliant ads after a court order.",
+    "Record-keeping to identify synthetic-performer usage and support the disclosure workflow."
+  ],
+  penalties:"Enforceable under California's <b>false advertising law and Unfair Competition Law</b> — including <b>private plaintiff actions</b>, which materially raises exposure versus fixed-penalty regimes.",
+  sources:[["Official text — SB 1050 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1050"],["Governor's signing statement","https://www.gov.ca.gov/2026/09/16/governor-newsom-signs-new-law-to-protect-workers-require-disclosures-on-ai-generated-advertising/"]],
+  plainLede:"If the person selling in your ad <span class=\"hl\">isn't a person</span>, the ad has to say so — clearly.",
+  plain:[
+    "AI-generated spokespeople, cloned-style voices, virtual influencers: when they're prominent in an ad for California audiences, a prescribed disclosure is mandatory from January 1, 2027.",
+    "California is the second state after New York — but unlike New York, it covers audio-only ads and exposes violators to private lawsuits, not just regulator fines.",
+    "Agencies should inventory every AI-performer use now and build the disclosure into the creative approval checklist."
+  ],
+  analogy:"The “paid actor” disclaimer for a cast that was never born.",
+  who:"Advertisers, creative agencies, ad platforms, and brands using AI-generated humans or voices in California-facing campaigns."
+},
+{
+  id:"caivo", group:"California", jur:"California", name:"SB 813 + AB 1405 · AI Audit Framework",
+  cite:"Signed Sept 9, 2026 · IVO designation framework + AI Auditor Registry",
+  status:"live", statusLabel:"Signed · phased build-out",
+  dates:[["Signed","Sept 9, 2026"],["IVO criteria due","Jan 1, 2028 (GovOps)"],["Auditor Registry due","Jan 1, 2029"],["Unregistered covered audits","Prohibited from Jan 1, 2029"]],
+  covered:"SB 813 covers organizations seeking designation as <b>Independent Verification Organizations</b> (IVOs) that assess AI systems against state law. AB 1405 covers anyone offering, selling, or conducting a <b>“covered AI audit”</b> — an audit of controls necessary for compliance with California law.",
+  requirements:[
+    "<b>SB 813:</b> the Government Operations Agency must publish IVO qualification criteria by Jan 1, 2028 — expertise, methodologies, independence, and conflict management. Pay must not depend on the audit outcome.",
+    "<b>SB 813:</b> IVOs get continuing reporting duties on standards, governance, and funding; designation can be suspended or terminated.",
+    "<b>AB 1405:</b> a public, searchable <b>AI Auditor Registry</b> by Jan 1, 2029 — with annual fees, unique registration numbers, and a misconduct-reporting channel.",
+    "<b>AB 1405:</b> from Jan 1, 2029, an <b>unregistered person may not offer, sell, or conduct</b> a covered AI audit in California.",
+    "<b>AB 1405:</b> independence rules in statute — no auditing your own work, no impairing financial relationships, 12-month cooling-off for ex-client staff, whistleblower protections, 10-year record retention.",
+    "Neither bill makes audits mandatory for AI vendors — they build the licensing machinery <b>before</b> the mandates arrive."
+  ],
+  penalties:"Unregistered covered-audit work becomes unlawful from Jan 1, 2029; violations are grounds for registry removal and referral to the Attorney General.",
+  sources:[["Governor's signing announcement (official)","https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/"],["Official text — AB 1405 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB1405"],["Official text — SB 813 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813"]],
+  plainLede:"California is <span class=\"hl\">licensing AI auditors</span> the way it licenses accountants — first in the nation.",
+  plain:[
+    "Today, anyone can sell an “AI audit.” From 2029, selling a compliance audit of a California AI system without a state registration number will be illegal.",
+    "SB 813 builds the gold-standard lane (state-designated verifiers); AB 1405 builds the baseline license (the registry). Both were backed by Anthropic and OpenAI.",
+    "For buyers: you'll finally be able to check whether your AI auditor is state-registered. For auditors (including firms like ours): the independence and record-keeping rules are already written into the statute."
+  ],
+  analogy:"The CPA exam for AI assurance — the state is creating the profession before requiring the audit.",
+  who:"AI audit and assurance providers; enterprises buying AI audits; compliance teams planning 2027–2029 governance budgets."
+},
+{
+  id:"euai", group:"European Union", jur:"European Union", name:"EU AI Act · Regulation (EU) 2024/1689",
+  cite:"OJ L, 2024/1689 · as amended by the Digital Omnibus, Regulation (EU) 2026/1744 (in force Jul 27, 2026)",
+  status:"live", statusLabel:"Phased application — transparency live",
+  dates:[["Prohibited practices + AI literacy","Since Feb 2, 2025"],["GPAI model obligations","Since Aug 2, 2025"],["Transparency (Art. 50) + enforcement powers","Since Aug 2, 2026"],["High-risk (Annex III)","Postponed → Dec 2, 2027"],["High-risk (Annex I products)","Postponed → Aug 2, 2028"]],
+  covered:"Anyone <b>placing an AI system on the EU market</b>, deploying AI in the EU, or producing AI outputs used in the EU — including US companies with EU users. GPAI model providers face a separate horizontal regime; fine-tuning or substantially modifying a GPAI model can make you a “provider.”",
+  requirements:[
+    "<b>Article 5 bans (live):</b> manipulative techniques, social scoring, exploitative biometric categorization, most real-time remote biometric ID — plus a new ban on generating CSAM/non-consensual intimate imagery from Dec 2, 2026.",
+    "<b>Article 4 (live):</b> AI literacy — ensure staff involved in AI operation have sufficient understanding.",
+    "<b>GPAI providers (Arts. 53/55, live):</b> technical documentation, public training-data summaries, copyright-compliance policy; systemic-risk models (10²⁵ FLOPs) add evaluations, risk mitigation, serious-incident reporting, cybersecurity. Enforcement powers + fines active since Aug 2, 2026.",
+    "<b>Article 50 transparency (live since Aug 2, 2026):</b> disclose when users interact with AI; machine-readable marking of AI-generated content; deepfake labeling.",
+    "<b>High-risk regime (postponed):</b> Annex III uses (employment, education, credit, biometrics, critical infrastructure, law enforcement, migration, justice) apply from Dec 2, 2027; Annex I embedded components from Aug 2, 2028."
+  ],
+  penalties:"Up to <b>€35M or 7%</b> of worldwide turnover (prohibited practices); <b>€15M or 3%</b> (most obligations, incl. GPAI); <b>€7.5M or 1%</b> (misleading information to authorities). SME/startup caps apply.",
+  sources:[["Official text — EUR-Lex 2024/1689","https://eur-lex.europa.eu/eli/reg/2024/1689/oj"],["Commission GPAI guidelines (official)","https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers"]],
+  plainLede:"The world's first <span class=\"hl\">comprehensive AI law</span> — phased in slices; the transparency slice is already biting.",
+  plain:[
+    "Everything is sorted by risk: some AI uses are simply banned, “high-risk” uses get the heavy compliance regime, and generative/foundation models have their own rulebook.",
+    "If you have EU users, you're likely in scope as a <b>deployer</b>. If you fine-tune a foundation model, you may inherit <b>provider</b> duties — documentation, training-data summaries, copyright policy.",
+    "The 2026 “Digital Omnibus” delayed the heaviest high-risk obligations to late 2027/2028 — but do not relax: the bans, literacy duty, GPAI rules, and deepfake/transparency labeling are all enforceable today."
+  ],
+  analogy:"GDPR's bigger sibling: extraterritorial, turnover-based fines, and compliance deadlines arriving in waves.",
+  who:"Any company selling AI into the EU or whose AI outputs are used there; foundation-model providers; enterprises deploying AI in EU operations."
+},
+{
+  id:"colorado", group:"US States", jur:"Colorado", name:"SB 26-189 · Consumer ADMT Law",
+  cite:"Signed May 14, 2026 · repeals & replaces SB 24-205 (Colorado AI Act) · effective Jan 1, 2027",
+  status:"pend", statusLabel:"Effective Jan 1, 2027",
+  dates:[["Signed","May 14, 2026"],["SB 24-205","Repealed before ever taking effect"],["New regime effective","Jan 1, 2027"],["Cure period","60 days"]],
+  covered:"Developers and deployers of <b>automated decision-making technology (ADMT)</b> used in consequential decisions affecting Colorado consumers — a narrower, reworked scope than the repealed “high-risk AI” regime.",
+  requirements:[
+    "<b>Pre-use consumer notice</b> when ADMT is used in consequential decisions.",
+    "<b>Adverse-action explanations within 30 days</b> when a consumer receives a negative outcome.",
+    "<b>Meaningful human review</b> pathways for contested decisions.",
+    "<b>Developer documentation</b> duties to support deployer compliance.",
+    "The repealed law's mandatory impact assessments, risk-management programs, and NIST/ISO affirmative defense are <b>gone</b>."
+  ],
+  penalties:"Exclusive <b>Colorado Attorney General</b> enforcement with a <b>60-day cure period</b>; no private right of action.",
+  sources:[["Official bill page — SB 26-189","https://leg.colorado.gov/bills/sb26-189"]],
+  plainLede:"Colorado <span class=\"hl\">ripped up its AI Act</span> and replaced it with a simpler “tell people, explain decisions, allow human review” law.",
+  plain:[
+    "The original Colorado AI Act (SB 24-205) was the country's most ambitious state AI law — and it collapsed under its own weight. It was repealed in May 2026 before taking effect.",
+    "The replacement focuses on consumer-facing automated decisions: notice up front, an explanation within 30 days if you're rejected, and a human you can appeal to.",
+    "If you built compliance programs for SB 24-205, re-scope: the obligations changed materially and the clock restarted at Jan 1, 2027."
+  ],
+  analogy:"The state traded a 40-page building code for three sturdy load-bearing walls.",
+  who:"Companies using automated decisions (credit, housing, employment-adjacent, insurance) touching Colorado consumers."
+},
+{
+  id:"ilhb3773", group:"US States", jur:"Illinois", name:"HB 3773 · AI in Employment",
+  cite:"Amends the Illinois Human Rights Act (775 ILCS 5) · effective Jan 1, 2026",
+  status:"live", statusLabel:"In effect since Jan 1, 2026",
+  dates:[["Signed","Aug 2024"],["Effective","Jan 1, 2026"],["Regulator","IL Dept. of Human Rights"],["Notice duty","Yes — employees & applicants"]],
+  covered:"Illinois <b>employers</b> using artificial intelligence in employment decisions — recruitment, hiring, promotion, renewal, discipline, discharge, training, and terms/privileges of employment.",
+  requirements:[
+    "May not use AI that has the effect of <b>discriminating</b> against protected classes in any covered employment decision.",
+    "May not use <b>ZIP code as a proxy</b> for protected classes.",
+    "Must <b>notify</b> employees and applicants when AI is used for covered employment purposes (IDHR rules specify manner/timing).",
+    "Applies to generative and traditional AI alike."
+  ],
+  penalties:"Violations are <b>civil rights violations</b> under the IHRA — charges before the Illinois Department of Human Rights, with the Act's full remedies (back pay, damages, injunctive relief).",
+  sources:[["Official bill status — ILGA HB 3773","https://www.ilga.gov/legislation/BillStatus.asp?DocNum=3773&GAID=17&DocTypeID=HB&SessionID=112&GA=103"]],
+  plainLede:"Illinois employers using AI to hire or manage people must <span class=\"hl\">say so</span> — and the tool <span class=\"hl\">can't discriminate</span>.",
+  plain:[
+    "This is a discrimination law, not an AI law: it folds AI decisions into the existing Human Rights Act. If your screening tool filters people out by race, sex, age, or proxies like ZIP code, you're liable as if a human did it.",
+    "The other half is transparency: candidates and employees must be told when AI touches their employment decisions.",
+    "Multi-state employers should treat Illinois like NYC Local Law 144's stricter cousin — same hiring-AI surface, different enforcement machinery."
+  ],
+  analogy:"The referee didn't change — the rulebook just now covers robot players.",
+  who:"Employers with Illinois staff or applicants using AI screening, interviewing, scoring, or scheduling tools."
+},
+{
+  id:"ilsb315", group:"US States", jur:"Illinois", name:"SB 315 · AI Safety Measures Act",
+  cite:"Signed July 6, 2026 · effective Jan 1, 2027 (audits & framework Jan 1, 2028)",
+  status:"hot", statusLabel:"New · effective Jan 1, 2027",
+  dates:[["Signed","Jul 6, 2026"],["Disclosures + whistleblower","Jan 1, 2027"],["Framework + annual audits","Jan 1, 2028"],["Compute threshold","10²⁶ operations"]],
+  covered:"“Frontier developers” training models above <b>10²⁶ integer/floating-point operations</b>; “large frontier developers” (over $500M annual gross revenue with affiliates) carry the full regime. Any operational touchpoint in Illinois can create jurisdiction.",
+  requirements:[
+    "File a <b>disclosure statement</b> before developing, deploying, or operating a frontier model in Illinois (from Jan 1, 2027).",
+    "Publish a <b>frontier AI framework</b> — standards-based catastrophic-risk assessment, mitigation tiers, model-weight cybersecurity, governance, internal-use risk management — reviewed annually with public change justifications.",
+    "Publish a <b>transparency report</b> before deploying new or substantially modified frontier models.",
+    "Report <b>critical safety incidents</b> to IEMA/OHS and the Attorney General within <b>72 hours</b> — <b>24 hours</b> if imminent risk of death or serious injury.",
+    "<b>Annual independent third-party audits</b> (from Jan 1, 2028) — first mandate of its kind in the US; summaries publicly posted within 30 days of receipt.",
+    "Quarterly internal-use catastrophic-risk summaries; confidential whistleblower channels; state preemption of local AI rules."
+  ],
+  penalties:"Civil penalties up to <b>$1M (first)</b> and <b>$3M per subsequent violation</b>; operating without a current disclosure or false statements adds <b>$1,000/day</b> plus assessments owed. No private right of action.",
+  sources:[["Official bill status — ILGA SB 315","https://www.ilga.gov/legislation/BillStatus.asp?DocNum=315&GAID=18&DocTypeID=SB&SessionID=114&GA=104"]],
+  plainLede:"The third state frontier-safety law — and the <span class=\"hl\">first to force annual independent audits</span>.",
+  plain:[
+    "Illinois copied the California/New York template (same 10²⁶ threshold, same $500M line, same catastrophic-risk definition) and then went further: large developers must pay an independent auditor every year to check their safety claims.",
+    "If you merely use AI, breathe — this regulates the labs. But expect audit summaries and transparency reports to become standard procurement reading, and safety obligations to flow into vendor contracts.",
+    "With CA, NY, and IL aligned, a de facto national frontier-model standard now exists — plan to it once."
+  ],
+  analogy:"SOC 2 for the most powerful AI models on earth — mandatory, state-run, and annual.",
+  who:"Frontier AI labs; their auditors and assurance providers; enterprise procurement teams evaluating model vendors."
+},
+{
+  id:"nyc144", group:"US States", jur:"New York City", name:"Local Law 144 · AEDT Bias Audits",
+  cite:"NYC Admin. Code § 20-870 et seq. · in force · enforced since July 5, 2023",
+  status:"live", statusLabel:"In force · actively enforced",
+  dates:[["Passed","2021"],["Enforcement began","July 5, 2023"],["Audit cadence","Within 1 year before each use"],["Notice","10 business days before use"]],
+  covered:"Employers and employment agencies using an <b>Automated Employment Decision Tool (AEDT)</b> — machine-learning, statistical, or algorithmic tools that substantially assist hiring or promotion decisions — for candidates or employees in New York City.",
+  requirements:[
+    "An <b>independent bias audit</b> of the AEDT no more than one year before each use — measuring selection rates and impact ratios across sex, race, and intersectional categories.",
+    "Publish a <b>public summary</b> of the most recent bias audit (with date and distribution date of the tool) on the employer's website.",
+    "<b>Notify candidates at least 10 business days</b> before use: that an AEDT will be used, the job qualifications and characteristics it assesses, and how to request an alternative selection process or accommodation.",
+    "Data-retention disclosure: source data type, retention policy, and where it's held."
+  ],
+  penalties:"Civil penalties of <b>$500 (first violation)</b> and <b>$500–$1,500 per subsequent violation</b> — each day of use is a separate violation; DCWP enforcement.",
+  sources:[["NYC DCWP — AEDT official page","https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page"]],
+  plainLede:"Using AI to screen NYC job candidates? Get it <span class=\"hl\">bias-audited every year</span> and <span class=\"hl\">warn candidates first</span>.",
+  plain:[
+    "LL 144 was the first hiring-AI law with teeth in the US and remains the reference design: annual independent audit + public summary + advance candidate notice.",
+    "The audit measures impact ratios — statistical evidence the tool isn't filtering out protected groups — and the summary must sit on your careers page.",
+    "Tool vendors usually supply audit data, but the legal duty sits with the <b>employer</b>. “Our vendor handles it” is not a defense."
+  ],
+  analogy:"A building inspection for your hiring robot — renewed annually, posted in the lobby.",
+  who:"Any employer or agency hiring in NYC with résumé screeners, video-interview scoring, or algorithmic ranking tools."
+},
+{
+  id:"texas", group:"US States", jur:"Texas", name:"HB 149 · TRAIGA",
+  cite:"Texas Responsible AI Governance Act · effective Jan 1, 2026",
+  status:"live", statusLabel:"In effect since Jan 1, 2026",
+  dates:[["Signed","June 2025"],["Effective","Jan 1, 2026"],["Private-sector regime","Narrowed to prohibitions"],["Sandbox","Texas AI Council program"]],
+  covered:"Developers and deployers of AI systems in Texas, with the heaviest rules aimed at <b>state agencies</b>; private-sector duties were narrowed late in the process to categorical prohibitions plus limited disclosure.",
+  requirements:[
+    "<b>Categorical prohibitions:</b> no AI built for behavioral manipulation, intentional illegal discrimination, incitement to violence, or producing deepfake child sexual abuse material.",
+    "<b>Government restrictions:</b> state agencies may not use AI for social scoring or biometric identification without consent, and must disclose when consumers interact with agency AI.",
+    "<b>Texas Artificial Intelligence Council</b> — state coordination body — plus a <b>regulatory sandbox</b> for testing AI with temporary legal safe harbor.",
+    "Healthcare providers using AI in treatment must disclose to patients."
+  ],
+  penalties:"Exclusive <b>Texas Attorney General</b> enforcement with scaled civil penalties by violation type and cure opportunities; no private right of action.",
+  sources:[["Official bill history — Texas Capitol HB 149","https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149"]],
+  plainLede:"Texas went <span class=\"hl\">narrow, not broad</span>: a short list of things your AI must never do, mostly aimed at government.",
+  plain:[
+    "TRAIGA started as a sweeping EU-style bill and ended as a prohibition list: manipulation, discrimination, incitement, and CSAM deepfakes are banned for everyone.",
+    "If you're a normal business, the operational impact is light — the serious duties (disclosure, biometric limits, social-scoring bans) sit on state agencies.",
+    "The sandbox is the interesting part: Texas will let you test AI products under relaxed rules with the AI Council watching."
+  ],
+  analogy:"A fence with a few clearly electrified wires, not a maze.",
+  who:"AI vendors to Texas state government; healthcare AI; any company wanting sandbox cover for experimental AI."
+},
+{
+  id:"utah", group:"US States", jur:"Utah", name:"SB 149 · Artificial Intelligence Policy Act",
+  cite:"Effective May 1, 2024 · amended 2025 · Division of Consumer Protection",
+  status:"live", statusLabel:"In effect",
+  dates:[["Effective","May 1, 2024"],["Amended","2025 session"],["Regulator","UT Division of Consumer Protection"],["Office","Utah Office of AI Policy"]],
+  covered:"Persons using <b>generative AI</b> in interactions with Utah consumers — with heightened, proactive duties for <b>regulated occupations</b> (licensed professions such as health, law, finance).",
+  requirements:[
+    "<b>On-request disclosure:</b> if a consumer asks whether they're interacting with AI, you must answer clearly and honestly.",
+    "<b>Proactive disclosure for regulated occupations:</b> licensed professionals using GenAI in high-stakes consumer interactions must disclose up front — before the interaction.",
+    "Created the <b>Office of Artificial Intelligence Policy</b> and the AI <b>Learning Laboratory</b> — a regulatory safe-harbor program for testing AI with temporary mitigation of state liability.",
+    "Suppliers cannot defend violations by blaming the AI: you are responsible for what your GenAI says as if you said it."
+  ],
+  penalties:"Administrative fines up to <b>$2,500 per violation</b> plus Division enforcement actions; Learning Lab participants can negotiate reduced liability in exchange for oversight.",
+  sources:[["Official text — Utah SB 149 (2024)","https://le.utah.gov/~2024/bills/static/SB0149.html"]],
+  plainLede:"Utah's rule is simple: <span class=\"hl\">don't let the AI pretend to be human</span> — especially if you're a licensed professional.",
+  plain:[
+    "For most businesses: if a customer asks “am I talking to a bot?”, you must tell the truth. That's the whole duty for general commerce.",
+    "For licensed pros (doctors, lawyers, accountants, therapists): the disclosure must come first, unprompted, because the stakes are higher.",
+    "The Learning Lab is the novel bit — Utah trades temporary regulatory relief for letting the state study your AI up close."
+  ],
+  analogy:"A name-tag law for robots: plain tag for shopkeepers, big bold tag for surgeons.",
+  who:"Any consumer-facing GenAI deployment touching Utah; licensed professionals; AI startups wanting safe-harbor testing."
+}
+];
+
+/* ---------- rendering ---------- */
+const $ = (id)=>document.getElementById(id);
+const drawer=$("drawer"), scrim=$("scrim"), burger=$("burger"), dnav=$("dnav"), dsearch=$("dsearch");
+let currentId=null;
+
+function openDrawer(o){
+  drawer.classList.toggle("show",o); scrim.classList.toggle("show",o);
+  burger.classList.toggle("open",o); burger.setAttribute("aria-expanded",o);
+  if(o) dsearch.focus();
+}
+burger.addEventListener("click",()=>openDrawer(!drawer.classList.contains("show")));
+scrim.addEventListener("click",()=>openDrawer(false));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") openDrawer(false); });
+
+function buildNav(filter=""){
+  const f=filter.trim().toLowerCase();
+  dnav.innerHTML="";
+  let lastGroup=null;
+  LAWS.forEach(L=>{
+    const hay=(L.name+" "+L.jur+" "+L.cite+" "+L.group).toLowerCase();
+    if(f && !hay.includes(f)) return;
+    if(L.group!==lastGroup){
+      lastGroup=L.group;
+      const g=document.createElement("div"); g.className="dgroup"; g.textContent=L.group;
+      dnav.appendChild(g);
+    }
+    const b=document.createElement("button");
+    b.className="ditem"+(L.id===currentId?" active":"");
+    b.innerHTML='<span class="dot"></span><span>'+L.name.replace(" · ","<br><small>")+"</small></span>".replace("<br><small>","<small>")+'<span class="st '+(L.status==="live"?"live":L.status==="hot"?"hot":"pend")+'">'+(L.status==="live"?"in force":L.status==="hot"?"new":"pending")+"</span>";
+    b.innerHTML='<span class="dot"></span><span><span>'+L.name.split(" · ")[0]+'</span><small>'+(L.name.split(" · ")[1]||"")+"</small></span>"+'<span class="st '+(L.status==="live"?"live":L.status==="hot"?"hot":"pend")+'">'+(L.status==="live"?"in force":L.status==="hot"?"new":"pending")+"</span>";
+    b.addEventListener("click",()=>{ location.hash=L.id; openDrawer(false); });
+    dnav.appendChild(b);
+  });
+  if(!dnav.children.length) dnav.innerHTML='<div style="padding:18px;font-family:var(--mono);font-size:12px;color:var(--mute)">No laws match that filter.</div>';
+}
+dsearch.addEventListener("input",()=>buildNav(dsearch.value));
+
+function chip(cls,txt){ return '<span class="chip '+cls+'">'+txt+'</span>'; }
+
+function render(id){
+  const i=LAWS.findIndex(l=>l.id===id);
+  if(i<0) return;
+  const L=LAWS[i]; currentId=id;
+  $("crumbLaw").textContent=L.name;
+
+  const stCls=L.status==="live"?"live":L.status==="hot"?"hot":"pend";
+  $("lawhead").innerHTML=
+    '<div class="tags">'+chip("jur",L.jur)+chip(stCls,L.statusLabel)+chip("",LAWS.length+" laws tracked")+'</div>'+
+    "<h1>"+L.name+"</h1>"+
+    '<div class="cite">'+L.cite+"</div>"+
+    '<div class="dates">'+L.dates.map(d=>'<div class="dcell"><div class="dk">'+d[0]+'</div><div class="dv">'+d[1]+"</div></div>").join("")+"</div>";
+
+  $("panelFramework").innerHTML=
+    '<div class="fblock"><div class="fk">Who is covered</div><p>'+L.covered+"</p></div>"+
+    '<div class="fblock"><div class="fk">Core obligations</div><ul class="freq">'+L.requirements.map(r=>"<li>"+r+"</li>").join("")+"</ul></div>"+
+    '<div class="fblock"><div class="fk">Penalties & enforcement</div><div class="penbox">'+L.penalties+"</div></div>"+
+    '<div class="fblock"><div class="fk">Official sources</div><div>'+L.sources.map(s=>'<a class="srclink" href="'+s[1]+'" target="_blank" rel="noopener">↗ '+s[0]+"</a>").join("")+"</div></div>";
+
+  $("panelPlain").innerHTML=
+    '<div class="plain-lede">'+L.plainLede+"</div>"+
+    L.plain.map(p=>'<p class="body2">'+p+"</p>").join("")+
+    '<div class="analogy"><div class="ak">Think of it like…</div><p>'+L.analogy+"</p></div>"+
+    '<div class="whocares"><b>Who should care:</b> '+L.who+"</div>";
+
+  const prev=LAWS[(i-1+LAWS.length)%LAWS.length], next=LAWS[(i+1)%LAWS.length];
+  $("pnPrev").href="#"+prev.id; $("pnPrevName").textContent=prev.name;
+  $("pnNext").href="#"+next.id; $("pnNextName").textContent=next.name;
+
+  buildNav(dsearch.value);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* tabs */
+const tF=$("tabFramework"), tP=$("tabPlain"), pF=$("panelFramework"), pP=$("panelPlain");
+function setTab(fw){
+  tF.classList.toggle("active",fw); tP.classList.toggle("active",!fw);
+  tF.setAttribute("aria-selected",fw); tP.setAttribute("aria-selected",!fw);
+  pF.classList.toggle("show",fw); pP.classList.toggle("show",!fw);
+}
+tF.addEventListener("click",()=>setTab(true));
+tP.addEventListener("click",()=>setTab(false));
+
+/* hash routing */
+function route(){ render((location.hash||"#sb942").slice(1)); }
+window.addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>

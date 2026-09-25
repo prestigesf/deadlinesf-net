@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — DeadlineSF</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Secure on-site checkout for DeadlineSF packages.">
+<link rel="canonical" href="https://deadlinesf.net/checkout.html">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+:root{color-scheme:dark;--bg:#0a0a0a;--panel:#111;--line:#2a2a2a;--ink:#f5f5f0;--mute:#8a8a82;--red:#FF2B2B;--signal:#46e6a0;--amber:#ffb627;--mono:"JetBrains Mono",monospace;--disp:Archivo,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--ink);font-family:var(--disp);line-height:1.45;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--mute);margin-bottom:24px}
+.top a{color:var(--ink);text-decoration:none}.r{color:var(--red)}
+h1{font-size:clamp(26px,5vw,40px);font-weight:900;text-transform:uppercase;line-height:.95;margin:8px 0 10px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:20px}
+.card{border:1px solid var(--line);background:var(--panel);padding:18px;margin-bottom:16px}
+.card .name{font-size:18px;font-weight:700;margin-bottom:4px}
+.card .price{font-family:var(--mono);font-size:28px;color:var(--amber);margin:8px 0}
+.card .desc{font-size:13px;color:var(--mute)}
+#checkout{min-height:420px;border:1px solid var(--line);background:#0d0d0d;padding:8px}
+.status{font-family:var(--mono);font-size:12px;color:var(--mute);margin:12px 0}
+.status.err{color:var(--red)}
+.note{font-size:12px;color:var(--mute);margin-top:16px;border-left:3px solid var(--line);padding:10px 12px}
+.badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);padding:3px 8px;color:var(--signal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a href="index.html">//<span class="r">DEADLINE</span>SF</a>
+    <span>On-site checkout · Stripe Embedded</span>
+    <a href="index.html#offer">← Packages</a>
+  </div>
+  <span class="badge" id="modeBadge">loading</span>
+  <h1>Secure <span class="r">checkout</span></h1>
+  <p class="sub">Payment stays on deadlinesf.net (Stripe Embedded Checkout). You never leave this site for a third-party cart page.</p>
+
+  <div class="card" id="pkgCard">
+    <div class="name" id="pkgName">Loading package…</div>
+    <div class="price" id="pkgPrice"></div>
+    <div class="desc" id="pkgDesc"></div>
+  </div>
+
+  <div class="status" id="status">Preparing secure payment form…</div>
+  <div id="checkout"></div>
+
+  <p class="note">Powered by Stripe on the Cited Global / PrestigeSF account. DeadlineSF is not a law firm. After payment you’ll land on the thank-you page and Nicholle will fulfill the package.</p>
+</div>
+<script>
+(function(){
+  var CATALOG = {
+    gap_750: { name: 'AB 2013 Gap Audit', price: '$750', desc: 'One-time · 48 hours · premium entry' },
+    tier1_3500: { name: 'Tier 1 · Intake + Applicability', price: '$3,500', desc: 'One-time · 5 business days' },
+    tier2_7500: { name: 'Tier 2 · Provenance Control', price: '$7,500', desc: 'One-time · 10 business days · SB 942' },
+    tier3_12500: { name: 'Tier 3 · Full Control Plane Rush', price: '$12,500', desc: 'Rush · multi-pack · priority support' },
+    monitor_500: { name: 'Monitoring Base', price: '$500/mo', desc: 'Cancel anytime' },
+    monitor_1500: { name: 'Monitoring Pro', price: '$1,500/mo', desc: 'Priority attorney routing · cancel anytime' },
+    mcp_shield_2500: { name: 'MCP Shield & Post-Quantum Retainer', price: '$2,500/mo', desc: 'Enterprise agent security · CBOM included · cancel anytime' }
+  };
+
+  var params = new URLSearchParams(location.search);
+  var pkg = params.get('pkg') || params.get('package') || 'gap_750';
+  var email = params.get('email') || '';
+  var meta = CATALOG[pkg] || CATALOG.gap_750;
+  document.getElementById('pkgName').textContent = meta.name;
+  document.getElementById('pkgPrice').textContent = meta.price;
+  document.getElementById('pkgDesc').textContent = meta.desc;
+  var statusEl = document.getElementById('status');
+  var modeBadge = document.getElementById('modeBadge');
+
+  function fail(msg) {
+    statusEl.className = 'status err';
+    statusEl.textContent = msg;
+  }
+
+  fetch('/api/create-checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ package: pkg, customer_email: email || undefined })
+  }).then(function(r){
+    return r.text().then(function(t){
+      var j = null;
+      try { j = JSON.parse(t); } catch (e) { j = null; }
+      return { status: r.status, ok: r.ok, j: j };
+    });
+  })
+  .then(async function(res){
+    if (!res.j) {
+      // Function not deployed (Netlify served a 404 page) — not a card problem.
+      fail('Payments backend is not live yet. Email nicholle@deadlinesf.com and we will take your order directly.');
+      return;
+    }
+    if (!res.ok) {
+      fail((res.j.message || res.j.error) || 'Could not start checkout');
+      return;
+    }
+    var clientSecret = res.j.clientSecret;
+    var pk = res.j.publishableKey;
+    modeBadge.textContent = (res.j.mode === 'live' ? 'LIVE' : 'TEST') + ' · Stripe Embedded';
+    if (!clientSecret || !pk) {
+      fail('Checkout session incomplete — email nicholle@deadlinesf.com');
+      return;
+    }
+    statusEl.textContent = 'Checkout ready — complete payment below.';
+    var stripe = Stripe(pk);
+    var checkout = await stripe.initEmbeddedCheckout({ clientSecret: clientSecret });
+    checkout.mount('#checkout');
+  }).catch(function(e){
+    fail('Checkout failed: ' + (e && e.message ? e.message : 'network error'));
+  });
+})();
+</script>
+</body>
+</html>

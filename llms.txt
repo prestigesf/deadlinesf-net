@@ -1,0 +1,45 @@
+# DeadlineSF
+> Multi-jurisdiction AI compliance control plane. Modular law packs, attorney-reviewed packages, verified compliance receipts, and a free plain-English AI Law Library. Not a law firm.
+
+## Doctrine (founder-locked)
+- Help first. Everything is built to protect and educate people — never extract first.
+- Do not ask for trust. Prove worth by giving something small but valuable away.
+- The free 3-line patch IS the pitch, not a brochure.
+- Value before invoice. Education before fear. Armor before jargon.
+- Public line: "We don't ask for trust. We prove it — with a free fix you can use today."
+
+## Pages
+- Home / control plane: https://deadlinesf.net/
+- AI Law Library (exact framework + plain English, 13 laws): https://deadlinesf.net/laws.html
+- Free patch (the pitch): https://deadlinesf.net/free-patch.html
+- On-site checkout: https://deadlinesf.net/checkout.html
+- Live Decision API scan: https://deadlinesf.net/#api
+- CBOM services: https://deadlinesf.net/#cbom
+- Readiness quiz: https://deadlinesf.net/quiz.html
+- Safe Harbor specimen: https://deadlinesf.net/safe-harbor-certificate.html
+- Receipt verification: https://deadlinesf.net/verify.html
+
+## API (Netlify functions)
+- GET  https://deadlinesf.net/api/laws
+- POST https://deadlinesf.net/api/scan
+- POST https://deadlinesf.net/api/fulfill        (shared-secret protected)
+- POST https://deadlinesf.net/api/create-checkout (body: {"package":"gap_750"|...})
+- POST https://deadlinesf.net/api/stripe-webhook  (Stripe endpoint; signature-verified)
+
+## Packages (Premium)
+- Gap Audit $750
+- Tier 1 $3,500 · Tier 2 $7,500 · Tier 3 $12,500
+- Monitoring $500 / $1,500 per month
+- MCP Shield & Post-Quantum Retainer $2,500 per month (includes CBOM services)
+
+## Services
+- CBOM: CycloneDX 1.6 cryptographic inventory, quantum-vulnerable debt flagging, PQC (ML-DSA-65 / FIPS 204) migration roadmap, dual-signed attestation receipts
+
+## Law packs tracked
+- CA: AB 2013, SB 942, SB 1000 (pending signature), SB 53 TFAIA, SB 1050, SB 813 + AB 1405
+- EU: AI Act (Reg. 2024/1689 + 2026/1744 omnibus)
+- US: CO SB 26-189, IL HB 3773, IL SB 315, NYC LL 144, TX HB 149 TRAIGA, UT SB 149
+
+## Contact
+- nicholle@deadlinesf.com
+- Founder: Nicholle Simon · PrestigeSF
