@@ -1,0 +1,9 @@
+{
+  "name": "deadlinesf-functions",
+  "version": "2.0.0",
+  "private": true,
+  "description": "DeadlineSF Netlify functions — Decision API + Stripe checkout/webhooks",
+  "dependencies": {
+    "stripe": "^18.0.0"
+  }
+}
