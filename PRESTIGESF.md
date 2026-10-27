@@ -6,11 +6,11 @@ No leaf = not PrestigeSF Inc.
 
 GoldTracReceiptV1. Nine fields. No extras.
 
-kid · alg=ML-DSA-65 · payload_hash (SHA-256, 64 hex) · chain_root · smt_root · sig · tsa · tsa_time · app
+The field list is kept in the private repos (unfiled IP).
 
 app: prestige-mcp | deadlinesf | billrosetta | bopcart
 
-Not ECDSA-P256. Not a FIPS 140-3 module. Custody: SOFTWARE.
+Custody: SOFTWARE.
 
 A wrap with sig null is not a leaf.
 QuantumRain intercept edr_* is not a leaf.
