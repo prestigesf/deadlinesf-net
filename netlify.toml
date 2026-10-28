@@ -1,8 +1,76 @@
+# DeadlineSF — Netlify configuration
+# Static site + serverless Decision API + Stripe webhooks.
+
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+# Public API paths -> functions
+[[redirects]]
+  from = "/api/laws"
+  to = "/.netlify/functions/laws"
+  status = 200
+
+[[redirects]]
+  from = "/api/scan"
+  to = "/.netlify/functions/scan"
+  status = 200
+
+[[redirects]]
+  from = "/api/fulfill"
+  to = "/.netlify/functions/fulfill"
+  status = 200
+
+[[redirects]]
+  from = "/api/create-checkout"
+  to = "/.netlify/functions/create-checkout"
+  status = 200
+
+# Stripe posts its webhooks HERE (configure this URL in the Stripe Dashboard)
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to = "/.netlify/functions/stripe-webhook"
+  status = 200
+
+# Extensionless pretty URLs still work for legacy links
+[[redirects]]
+  from = "/quiz"
+  to = "/quiz.html"
+  status = 200
+
+[[redirects]]
+  from = "/free-patch"
+  to = "/free-patch.html"
+  status = 200
+
+[[redirects]]
+  from = "/laws"
+  to = "/laws.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/thanks"
+  to = "/thanks.html"
+  status = 200
+
+[[redirects]]
+  from = "/verify"
+  to = "/verify.html"
+  status = 200
+
+[[redirects]]
+  from = "/safe-harbor-certificate"
+  to = "/safe-harbor-certificate.html"
+  status = 200
 
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
