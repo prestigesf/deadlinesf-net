@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inquiry received — DeadlineSF Premium</title>
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Your DeadlineSF Premium inquiry was received.">
+<link rel="canonical" href="https://deadlinesf.net/thanks.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:dark;--bg:#0a0a0a;--panel:#111;--line:#2a2a2a;--ink:#f5f5f0;--mute:#8a8a82;--red:#FF2B2B;--signal:#46e6a0;--amber:#ffb627;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;--disp:"Archivo","Helvetica Neue",Arial,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--disp);line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+  .statusbar{border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--mute);padding:10px 24px}
+  .statusbar .live{color:var(--red)}
+  .wrap{max-width:640px;margin:0 auto;padding:64px 24px;flex:1}
+  .logo{font-family:var(--mono);font-weight:700;letter-spacing:.05em;font-size:14px;text-decoration:none;color:var(--ink)}
+  .r{color:var(--red)}
+  h1{font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1;text-transform:uppercase;margin:28px 0 16px;letter-spacing:-.02em}
+  p{color:var(--mute);font-size:16px;margin-bottom:14px;max-width:54ch}
+  p b{color:var(--ink)}
+  .card{border:1px solid var(--line);background:var(--panel);padding:24px;margin:28px 0}
+  .card h2{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);margin-bottom:14px}
+  .card ol{margin-left:1.2em;color:var(--mute);font-size:14px}
+  .card li{margin-bottom:8px}
+  .btn{display:inline-block;padding:12px 20px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid var(--red);background:var(--red);color:var(--ink);font-weight:700;margin-right:10px;margin-top:8px}
+  .btn.ghost{background:transparent;border-color:var(--line)}
+  footer{border-top:1px solid var(--line);padding:24px;font-family:var(--mono);font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="statusbar"><span class="live">●</span> Premium inquiry received · multi-jurisdiction control plane</div>
+<div class="wrap">
+  <a class="logo" href="index.html">//<span class="r">DEADLINE</span>SF</a>
+  <h1>We got it.</h1>
+  <p id="thanksMsg">Your <b>Premium</b> inquiry or payment is in. Nicholle will reply with next steps — usually within one business day.</p>
+  <script>
+    (function(){
+      var p = new URLSearchParams(location.search);
+      var sid = p.get('session_id');
+      var pkg = p.get('pkg');
+      var el = document.getElementById('thanksMsg');
+      if (sid) {
+        el.innerHTML = 'Payment received' + (pkg ? ' for <b>' + pkg.replace(/_/g,' ') + '</b>' : '') +
+          '. Stripe session <code style="color:#46e6a0;font-size:12px">' + sid.slice(0,20) + '…</code>. Nicholle will fulfill your package and email you shortly.';
+      }
+    })();
+  </script>
+  <div class="card">
+    <h2>What happens next</h2>
+    <ol>
+      <li>We map your product against the packs in scope (CA hot deadlines + multi-jurisdiction when relevant).</li>
+      <li>You get a plain-English tier recommendation — Gap Audit $750 through Full Control Plane $12,500, or monitoring.</li>
+      <li>New to the landscape? The free AI Law Library explains every law in plain English.</li>
+    </ol>
+  </div>
+  <p style="font-size:13px">Not legal advice. DeadlineSF is a compliance-readiness service; packages are reviewed by a licensed California attorney.</p>
+  <p style="font-size:14px;color:#c8c8c0;margin-top:8px">We earn the right to help by giving first — if you haven’t taken the free patch yet, it’s still yours.</p>
+  <a class="btn" href="index.html">Back to Premium</a>
+  <a class='btn ghost' href='free-patch.html'>Free 3-line patch</a>
+  <a class='btn ghost' href='laws.html'>Law Library</a>
+</div>
+<footer>
+  <div class="wrap" style="padding:0">Nicholle Simon · <a href="mailto:nicholle@deadlinesf.com" style="color:var(--ink)">nicholle@deadlinesf.com</a> · © 2026 PrestigeSF</div>
+</footer>
+</body>
+</html>
