@@ -39,7 +39,7 @@ ul{margin:12px 0 12px 1.2em;color:var(--mute);font-size:14px}
     <a href="index.html#api">Live API scan</a>
   </div>
   <h1>Readiness <span class="r">quiz</span></h1>
-  <p class="sub">Eleven yes/no questions. Local only — nothing is uploaded. Result is a triage hint, not legal advice. Prefer a free fix first? <a href='free-patch.html' style='color:var(--amber)'>Take the 3-line patch</a> — we don’t ask for trust, we prove it.</p>
+  <p class="sub">Eleven yes/no questions. Local only — nothing is uploaded. Result is a triage hint, not legal advice. Prefer a free fix first? <a href='https://claimfreepatch.netlify.app/' style='color:var(--amber)'>Take the free 12-part § 3111 disclosure builder</a> — it runs in your browser; nothing is uploaded. Official text: <a href='https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=15.2.&amp;part=4.' rel='noopener noreferrer' style='color:var(--amber)'>Cal. Civ. Code § 3111</a>.</p>
 
   <div class="card" id="quizCard">
     <div class="meta"><span id="stepLab">Question 1 / 11</span></div>
@@ -57,7 +57,7 @@ ul{margin:12px 0 12px 1.2em;color:var(--mute);font-size:14px}
     <p class="score" id="scoreLine"></p>
     <ul id="hints"></ul>
     <a class='btn' href='free-patch.html' id='ctaPrimary'>Take free patch first</a>
-    <a class='btn ghost' href='checkout.html?pkg=gap_750' id='ctaPay'>Gap Audit $750</a>
+    <a class='btn ghost' href='index.html#pricing' id='ctaPay'>See pricing</a>
     <a class="btn ghost" href="index.html#api">Live Decision API scan</a>
     <a class='btn ghost' href='laws.html'>Law Library</a>
     <button type="button" class="btn ghost" id="restart" style="cursor:pointer">Retake</button>
@@ -110,22 +110,22 @@ ul{margin:12px 0 12px 1.2em;color:var(--mute);font-size:14px}
     if (pct >= 55) {
       title.innerHTML = 'High priority · Premium path';
       add('Likely multi-factor exposure (training data, provenance, and/or multi-jurisdiction).');
-      add('Gift first: free 3-line patch, then Gap Audit $750 → Tier 2/3 if media is core.');
+      add('Gift first: free 12-part § 3111 disclosure builder (runs in your browser; nothing is uploaded), then Scan, Systems, or Everything if you need more.');
       add('Run Live Decision API scan with SB 942 pack facts filled in.');
-      cta.href = 'free-patch.html'; cta.textContent = 'Take free patch first';
-      if (ctaPay) { ctaPay.href = 'checkout.html?pkg=gap_750'; ctaPay.textContent = 'Then Gap Audit $750'; }
+      cta.href = 'https://claimfreepatch.netlify.app/'; cta.textContent = 'Take free patch first';
+      if (ctaPay) { ctaPay.href = 'index.html#pricing'; ctaPay.textContent = 'See pricing'; }
     } else if (pct >= 30) {
-      title.innerHTML = 'Moderate · Start with the gift, then Gap Audit';
+      title.innerHTML = 'Moderate · Start with the gift, then pricing';
       add('Material CA / GenAI signals. Close disclosure gaps before they become investor questions.');
-      add('Free 3-line patch first (that is the pitch), then $750 Gap Audit.');
-      add('Learn the landscape free first: AI Law Library, then the $750 Gap Audit.');
-      cta.href = 'free-patch.html'; cta.textContent = 'Take free patch first';
-      if (ctaPay) { ctaPay.href = 'checkout.html?pkg=gap_750'; ctaPay.textContent = 'Gap Audit $750'; }
+      add('Free 12-part § 3111 disclosure builder first (that is the pitch), then Scan, Systems, or Everything if you need more.');
+      add('Learn the landscape free first: AI Law Library, then pricing if you need more.');
+      cta.href = 'https://claimfreepatch.netlify.app/'; cta.textContent = 'Take free patch first';
+      if (ctaPay) { ctaPay.href = 'index.html#pricing'; ctaPay.textContent = 'See pricing'; }
     } else {
       title.innerHTML = 'Lower index · still verify';
       add('Fewer risk flags from this triage — still confirm public disclosures and counsel review.');
       add('We still hand you the free patch — proof before invoice.');
-      cta.href = 'free-patch.html'; cta.textContent = 'Get free patch';
+      cta.href = 'https://claimfreepatch.netlify.app/'; cta.textContent = 'Get free patch';
       if (ctaPay) { ctaPay.href = 'laws.html'; ctaPay.textContent = 'Read the Law Library'; }
     }
     if (answers[2] === true) add('No public training-data page flagged → AB 2013 readiness work.');
