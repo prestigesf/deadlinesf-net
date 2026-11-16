@@ -79,7 +79,7 @@
   .chip.pend{color:var(--amber);border-color:rgba(255,182,39,.5)}
   .chip.jur{color:var(--violet);border-color:rgba(139,123,255,.45)}
   .lawhead h1{font-size:clamp(26px,4.6vw,44px);font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.02em;margin-bottom:10px}
-  .lawhead .cite{font-family:var(--mono);font-size:13px;color:var(--amber)}
+  .lawhead .cite{font-family:var(--mono);font-size:13px;color:var(--amber)}.lawhead .cite a{color:inherit;text-decoration:underline;text-underline-offset:2px}
   .lawhead .dates{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;border:1px solid var(--line);border-radius:10px;margin-top:18px;overflow:hidden}
   .lawhead .dcell{padding:12px 16px;border-right:1px solid var(--line);background:rgba(255,255,255,.015)}
   .lawhead .dcell:last-child{border-right:none}
@@ -189,7 +189,7 @@
 const LAWS = [
 {
   id:"sb942", group:"California", jur:"California", name:"SB 942 · California AI Transparency Act",
-  cite:"Cal. Bus. & Prof. Code §§ 22757–22757.6 · amended by AB 853 (2025) · as amended by SB 1000 (2026, pending signature)",
+  cite:"<a href=\"https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&amp;division=8.&amp;title=&amp;part=&amp;chapter=25.&amp;article=\" rel=\"noopener noreferrer\">Cal. Bus. &amp; Prof. Code §§ 22757–22757.6</a> · amended by AB 853 (2025) · as amended by SB 1000 (2026, pending signature)",
   status:"live", statusLabel:"In effect since Aug 2, 2026",
   dates:[["Chaptered","Sept 2024 (SB 942)"],["Operative date","Aug 2, 2026 (set by AB 853)"],["Penalty","$5,000 per violation, per day (§ 22757.3)"],["Scope trigger",">1M monthly users — deleted by SB 1000 (pending)"]],
   covered:"“Covered providers” — persons that create, code, or otherwise produce a generative AI system with over 1,000,000 monthly visitors or users that is publicly accessible within California. SB 1000 (passed Aug 27, 2026, awaiting the Governor's signature) deletes that threshold entirely, extending coverage to essentially every public GenAI provider with a California nexus.",
@@ -202,7 +202,7 @@ const LAWS = [
     "<b>Privacy guardrail (SB 1000):</b> no collecting, retaining, selling, or sharing personal information from verification-tool users beyond what compliance strictly requires."
   ],
   penalties:"Civil penalty of <b>$5,000 per violation, per day</b> (§ 22757.3), enforceable by the Attorney General, city attorneys, and county counsel. Each day of non-compliance compounds.",
-  sources:[["Official text — SB 942 (LegiScan/leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240SB942"],["AB 853 (operative-date amendment)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853"]],
+  sources:[["Official text — Cal. Bus. & Prof. Code §§ 22757–22757.6","https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=8.&title=&part=&chapter=25.&article="],["Official text — SB 942 (LegiScan/leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240SB942"],["AB 853 (operative-date amendment)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853"]],
   plainLede:"If Californians can use your AI to make images, video, or audio, you must <span class=\"hl\">invisibly watermark it</span> and give the public a free <span class=\"hl\">“is this AI?” checker</span>.",
   plain:[
     "Think of it as a permanent, invisible barcode baked into every file your AI produces. Anyone — a journalist, a platform, a regulator — can scan the file and see who made it, with what system, and when.",
@@ -214,7 +214,7 @@ const LAWS = [
 },
 {
   id:"ab2013", group:"California", jur:"California", name:"AB 2013 · Training-Data Transparency",
-  cite:"Cal. Civ. Code § 3111 · chaptered 2024 · operative Jan 1, 2026",
+  cite:"<a href=\"https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=15.2.&amp;part=4.\" rel=\"noopener noreferrer\">Cal. Civ. Code § 3111</a> · chaptered 2024 · operative Jan 1, 2026",
   status:"live", statusLabel:"In effect since Jan 1, 2026",
   dates:[["Chaptered","Sept 2024"],["Operative","Jan 1, 2026"],["User threshold","None — any covered developer"],["Enforcement","Unfair Competition Law (Bus. & Prof. § 17200)"]],
   covered:"“Developers” — any person or entity that designs, codes, produces, or <b>substantially modifies</b> (including fine-tuning) a generative AI system or service made publicly available to Californians. There is no user-count or revenue minimum.",
@@ -228,19 +228,19 @@ const LAWS = [
     "Documentation must be posted before the system (or a substantial modification of it) is released to Californians, and kept current."
   ],
   penalties:"No standalone fine schedule in § 3111 — exposure flows through California's <b>Unfair Competition Law</b> (Bus. & Prof. Code § 17200), enabling AG, DA, and private-plaintiff actions, injunctions, and restitution.",
-  sources:[["Official text — AB 2013 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240AB2013"]],
+  sources:[["Official text — Cal. Civ. Code § 3111","https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&division=3.&title=15.2.&part=4."],["Official text — AB 2013 (leginfo)","https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240AB2013"]],
   plainLede:"Build an AI people in California can use? You must publish a <span class=\"hl\">nutrition label for your training data</span> — no matter how small you are.",
   plain:[
     "The state wants to know what your model ate: where the training data came from, roughly how much of it there is, whether it's copyrighted, whether it contains people's personal information, and whether any of it is synthetic.",
     "The trap for startups: “developer” includes anyone who <b>fine-tunes or substantially modifies</b> a base model. Wrapping GPT with your own fine-tune can make you a developer with your own disclosure duty.",
-    "There's no revenue floor and no user floor. The disclosure lives on your website — and DeadlineSF's free 3-line patch plus Gap Audit exist precisely for this law."
+    "There's no revenue floor and no user floor. The disclosure lives on your website — and DeadlineSF's free 12-part <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=15.2.&amp;part=4.\" rel=\"noopener noreferrer\">Cal. Civ. Code § 3111</a> disclosure builder (it runs in your browser; nothing is uploaded) exists precisely for this law."
   ],
   analogy:"Like the ingredient list on packaged food: you don't have to give away the recipe (trade secrets are handled), but you must list the ingredients.",
   who:"GenAI developers and fine-tuners serving Californians — including SaaS teams modifying foundation models."
 },
 {
   id:"sb1000", group:"California", jur:"California", name:"SB 1000 · AI Transparency Act Amendments",
-  cite:"Amends Cal. Bus. & Prof. Code §§ 22757 et seq. · urgency statute · passed Aug 27, 2026",
+  cite:"Amends <a href=\"https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&amp;division=8.&amp;title=&amp;part=&amp;chapter=25.&amp;article=\" rel=\"noopener noreferrer\">Cal. Bus. &amp; Prof. Code §§ 22757 et seq.</a> · urgency statute · passed Aug 27, 2026",
   status:"pend", statusLabel:"Passed · awaiting Governor signature",
   dates:[["Passed Legislature","Aug 27, 2026 (urgency clause)"],["Enrolled","Sept 2, 2026 — on Governor's desk"],["Signature deadline","Sept 30, 2026"],["Effect on signature","Immediate (urgency statute)"]],
   covered:"Every “covered provider” under the California AI Transparency Act — redefined from “over 1,000,000 monthly visitors or users” to <b>any person</b> that creates, codes, or otherwise produces a GenAI system publicly accessible within California.",
