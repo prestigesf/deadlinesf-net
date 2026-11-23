@@ -1,4 +1,4 @@
-<!-- Source: Reviewer archive of Grok share 6bb8f847 (2026-08-26). Chat-only Deadline SF AEO article spec. Was not in this repo. Additive. Do not overwrite live HTML. -->
+<!-- Source: Archived spec (2026-08-26). Chat-only Deadline SF AEO article spec. Was not in this repo. Additive. Do not overwrite live HTML. -->
 
 # ADD: California AI Transparency Act Deadlines 2026
 
